@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZzDHF62AkB8=",
+  "dgSpecHash": "TiZnPIvQnFw=",
   "success": true,
-  "projectFilePath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj",
+  "projectFilePath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj",
   "expectedPackageFiles": [
     "/Users/irinapecik/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/irinapecik/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
@@ -43,6 +43,7 @@
     "/Users/irinapecik/.nuget/packages/mono.texttemplating/3.0.0/mono.texttemplating.3.0.0.nupkg.sha512",
     "/Users/irinapecik/.nuget/packages/npgsql/9.0.2/npgsql.9.0.2.nupkg.sha512",
     "/Users/irinapecik/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.2/npgsql.entityframeworkcore.postgresql.9.0.2.nupkg.sha512",
+    "/Users/irinapecik/.nuget/packages/sh.cqrs/1.0.0/sh.cqrs.1.0.0.nupkg.sha512",
     "/Users/irinapecik/.nuget/packages/system.codedom/6.0.0/system.codedom.6.0.0.nupkg.sha512",
     "/Users/irinapecik/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512",
     "/Users/irinapecik/.nuget/packages/system.composition/7.0.0/system.composition.7.0.0.nupkg.sha512",

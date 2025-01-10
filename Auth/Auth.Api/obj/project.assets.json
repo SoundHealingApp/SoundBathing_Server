@@ -856,6 +856,15 @@
           }
         }
       },
+      "SH.CQRS/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/CQRS.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/CQRS.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore.Swagger/7.2.0": {
         "type": "package",
         "dependencies": {
@@ -1154,7 +1163,8 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Auth.Core": "1.0.0",
-          "MediatR": "12.4.1"
+          "MediatR": "12.4.1",
+          "SH.CQRS": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Auth.Application.dll": {}
@@ -2896,6 +2906,17 @@
         "postgresql.png"
       ]
     },
+    "SH.CQRS/1.0.0": {
+      "sha512": "eWhNvPHlMgmaFoqEZLy6hI5Lo6wjEavWH2Myuu0hGSscEHLTysbz0Dk3uNAS49RaFlMqgXsyu0hsg1AaiCtZ6Q==",
+      "type": "package",
+      "path": "sh.cqrs/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net9.0/CQRS.dll",
+        "sh.cqrs.1.0.0.nupkg.sha512",
+        "sh.cqrs.nuspec"
+      ]
+    },
     "Swashbuckle.AspNetCore.Swagger/7.2.0": {
       "sha512": "y27fNDfIh1vGhJjXYynLcZjl7DLOW1bSO2MDsY9wB4Zm1fdxpPsuBSiR4U+0acWlAqLmnuOPKr/OeOgwRUkBlw==",
       "type": "package",
@@ -3402,6 +3423,7 @@
       "Auth.Infrastructure >= 1.0.0",
       "MediatR >= 12.4.1",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.0",
+      "SH.CQRS >= 1.0.0",
       "Swashbuckle.AspNetCore.SwaggerGen >= 7.2.0",
       "Swashbuckle.AspNetCore.SwaggerUI >= 7.2.0"
     ]
@@ -3412,11 +3434,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Api/Auth.Api.csproj",
+      "projectUniqueName": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/Auth.Api.csproj",
       "projectName": "Auth.Api",
-      "projectPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Api/Auth.Api.csproj",
+      "projectPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/Auth.Api.csproj",
       "packagesPath": "/Users/irinapecik/.nuget/packages/",
-      "outputPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Api/obj/",
+      "outputPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/irinapecik/.nuget/NuGet/NuGet.Config"
@@ -3425,20 +3447,20 @@
         "net9.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://nuget.pkg.github.com/SoundHealingApp/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Application/Auth.Application.csproj": {
-              "projectPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Application/Auth.Application.csproj"
+            "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Application/Auth.Application.csproj": {
+              "projectPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Application/Auth.Application.csproj"
             },
-            "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/Auth.Core.csproj": {
-              "projectPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/Auth.Core.csproj"
+            "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/Auth.Core.csproj": {
+              "projectPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/Auth.Core.csproj"
             },
-            "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj": {
-              "projectPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj"
+            "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj": {
+              "projectPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Infrastructure/Auth.Infrastructure.csproj"
             }
           }
         }
@@ -3468,6 +3490,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[9.0.0, )"
+          },
+          "SH.CQRS": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Swashbuckle.AspNetCore.SwaggerGen": {
             "target": "Package",

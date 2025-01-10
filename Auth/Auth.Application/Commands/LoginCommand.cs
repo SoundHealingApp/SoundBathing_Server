@@ -1,8 +1,7 @@
 using Auth.Application.Errors;
 using Auth.Application.Interfaces;
-using Auth.Core;
-using Auth.Core.CQRS;
 using Auth.Core.Interfaces;
+using CQRS;
 using MediatR;
 
 namespace Auth.Application.Commands;

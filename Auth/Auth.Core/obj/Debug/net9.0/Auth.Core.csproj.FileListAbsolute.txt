@@ -22,3 +22,15 @@
 /Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/obj/Debug/net9.0/refint/Auth.Core.dll
 /Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.pdb
 /Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/obj/Debug/net9.0/ref/Auth.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/bin/Debug/net9.0/Auth.Core.deps.json
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/bin/Debug/net9.0/Auth.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/bin/Debug/net9.0/Auth.Core.pdb
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.AssemblyInfoInputs.cache
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.AssemblyInfo.cs
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.csproj.CoreCompileInputs.cache
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.sourcelink.json
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/refint/Auth.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/Auth.Core.pdb
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/obj/Debug/net9.0/ref/Auth.Core.dll

@@ -20,6 +20,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="SH.CQRS" Version="1.0.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
     </ItemGroup>

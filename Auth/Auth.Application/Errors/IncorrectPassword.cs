@@ -1,5 +1,4 @@
-using Auth.Core;
-using Auth.Core.CQRS;
+using CQRS;
 
 namespace Auth.Application.Errors;
 

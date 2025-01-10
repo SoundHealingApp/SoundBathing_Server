@@ -2,7 +2,7 @@ using System.Net;
 using Auth.Application.Commands;
 using Auth.Application.Errors;
 using Auth.Contracts.Requests;
-using Auth.Core.Exceptions;
+using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

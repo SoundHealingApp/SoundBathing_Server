@@ -48,6 +48,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "SH.CQRS/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/CQRS.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/CQRS.dll": {}
+        }
+      },
       "Auth.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -124,6 +133,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "SH.CQRS/1.0.0": {
+      "sha512": "eWhNvPHlMgmaFoqEZLy6hI5Lo6wjEavWH2Myuu0hGSscEHLTysbz0Dk3uNAS49RaFlMqgXsyu0hsg1AaiCtZ6Q==",
+      "type": "package",
+      "path": "sh.cqrs/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net9.0/CQRS.dll",
+        "sh.cqrs.1.0.0.nupkg.sha512",
+        "sh.cqrs.nuspec"
+      ]
+    },
     "Auth.Core/1.0.0": {
       "type": "project",
       "path": "../Auth.Core/Auth.Core.csproj",
@@ -133,7 +153,8 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "Auth.Core >= 1.0.0",
-      "MediatR >= 12.4.1"
+      "MediatR >= 12.4.1",
+      "SH.CQRS >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -142,11 +163,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Application/Auth.Application.csproj",
+      "projectUniqueName": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Application/Auth.Application.csproj",
       "projectName": "Auth.Application",
-      "projectPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Application/Auth.Application.csproj",
+      "projectPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Application/Auth.Application.csproj",
       "packagesPath": "/Users/irinapecik/.nuget/packages/",
-      "outputPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Application/obj/",
+      "outputPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/irinapecik/.nuget/NuGet/NuGet.Config"
@@ -155,14 +176,14 @@
         "net9.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://nuget.pkg.github.com/SoundHealingApp/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/Auth.Core.csproj": {
-              "projectPath": "/Users/irinapecik/Documents/Projects/Auth/Auth/Auth.Core/Auth.Core.csproj"
+            "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/Auth.Core.csproj": {
+              "projectPath": "/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Core/Auth.Core.csproj"
             }
           }
         }
@@ -186,6 +207,10 @@
           "MediatR": {
             "target": "Package",
             "version": "[12.4.1, )"
+          },
+          "SH.CQRS": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
