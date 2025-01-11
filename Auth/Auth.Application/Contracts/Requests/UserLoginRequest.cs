@@ -1,3 +1,3 @@
 namespace Auth.Application.Contracts.Requests;
 
-public record UserLoginRequest(string UserName, string Password);
+public record UserLoginRequest(string Email, string Password);

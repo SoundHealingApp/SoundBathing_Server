@@ -1,10 +1,10 @@
 namespace Auth.Infrastructure.Entites;
 
-public class UserEntity(string userName, string passwordHash)
+public class UserEntity(string email, string passwordHash)
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public string UserName { get; set; } = userName;
+    public string Email { get; set; } = email;
 
     public string PasswordHash { get; set; } = passwordHash;
 }

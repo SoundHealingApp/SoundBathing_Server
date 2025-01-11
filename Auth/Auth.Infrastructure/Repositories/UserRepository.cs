@@ -9,8 +9,7 @@ public class UserRepository(UserDbContext userDbContext) : IUserRepository
 {
     public async Task<Guid> AddAsync(User user)
     {
-        // TODO: сделать маппинг
-        var userEntity = new UserEntity(user.UserName, user.PasswordHash);
+        var userEntity = new UserEntity(user.Email, user.PasswordHash);
 
         await userDbContext.Users.AddAsync(userEntity);
         await userDbContext.SaveChangesAsync();
@@ -18,16 +17,16 @@ public class UserRepository(UserDbContext userDbContext) : IUserRepository
         return userEntity.Id;
     }
 
-    public async Task<User?> GetByUserNameAsync(string userName)
+    public async Task<User?> GetByEmailAsync(string email)
     {
         var userEntity = await userDbContext.Users
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.UserName == userName);
+            .FirstOrDefaultAsync(x => x.Email == email);
         
         if (userEntity == null)
             return null;
         
-        var user = User.Create(userEntity.UserName, userEntity.PasswordHash);
+        var user = User.Create(userEntity.Email, userEntity.PasswordHash);
 
         return user;
     }

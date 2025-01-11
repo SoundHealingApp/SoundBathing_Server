@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Auth.Application.Commands;
 
-public record LoginCommand(string UserName, string Password) : IRequest<Result<string>>;
+public record LoginCommand(string Email, string Password) : IRequest<Result<string>>;
 
 public class LoginCommandHandler(
     IUserRepository userRepository,
@@ -15,10 +15,10 @@ public class LoginCommandHandler(
 {
     public async Task<Result<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetByUserNameAsync(request.UserName);
+        var user = await userRepository.GetByEmailAsync(request.Email);
 
         if (user == null)
-            return new UserNotFoundError(request.UserName);
+            return new UserNotFoundError(request.Email);
         
         var result = passwordHasher.Verify(request.Password, user.PasswordHash);
         

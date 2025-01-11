@@ -10,7 +10,7 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.UserName).IsRequired();
+        builder.Property(x => x.Email).IsRequired();
 
         builder.Property(x => x.PasswordHash).IsRequired();
     }

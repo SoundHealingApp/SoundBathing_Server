@@ -7,7 +7,7 @@ public class RegisterRequestValidator : AbstractValidator<UserRegisterRequest>
 {
     public RegisterRequestValidator()
     {
-        RuleFor(x => x.UserName)
+        RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email must not be empty.")
             .EmailAddress().WithMessage("Invalid email format.");
 

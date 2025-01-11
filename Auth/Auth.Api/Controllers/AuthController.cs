@@ -36,7 +36,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         }
         
         var result = await mediator.Send(
-            new RegisterCommand(request.UserName, request.Password),
+            new RegisterCommand(request.Email, request.Password),
             cancellationToken);
 
         return result switch
@@ -54,7 +54,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
-            new LoginCommand(request.UserName, request.Password),
+            new LoginCommand(request.Email, request.Password),
             cancellationToken);
 
         return result switch
