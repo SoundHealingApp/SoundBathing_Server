@@ -20,6 +20,7 @@
           "net9.0"
         ],
         "sources": {
+          "https://api.nuget.org/v3/index.json": {},
           "https://nuget.pkg.github.com/SoundHealingApp/index.json": {}
         },
         "frameworks": {
@@ -48,6 +49,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[12.4.1, )"
@@ -93,6 +98,7 @@
           "net9.0"
         ],
         "sources": {
+          "https://api.nuget.org/v3/index.json": {},
           "https://nuget.pkg.github.com/SoundHealingApp/index.json": {}
         },
         "frameworks": {
@@ -152,6 +158,7 @@
           "net9.0"
         ],
         "sources": {
+          "https://api.nuget.org/v3/index.json": {},
           "https://nuget.pkg.github.com/SoundHealingApp/index.json": {}
         },
         "frameworks": {

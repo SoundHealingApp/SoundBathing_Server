@@ -422,3 +422,6 @@
 /Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/obj/Debug/net9.0/Auth.Api.pdb
 /Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/obj/Debug/net9.0/Auth.Api.genruntimeconfig.cache
 /Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/obj/Debug/net9.0/ref/Auth.Api.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/bin/Debug/net9.0/FluentValidation.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/Auth.Api/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll

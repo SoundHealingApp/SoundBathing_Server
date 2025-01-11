@@ -1,4 +1,6 @@
+using Auth.Application.Contracts.Requests;
 using Auth.Application.Interfaces;
+using Auth.Application.Validators;
 using Auth.Core.Interfaces;
 using Auth.Extensions;
 using Auth.Infrastructure;
@@ -6,6 +8,7 @@ using Auth.Infrastructure.Helpers;
 using Auth.Infrastructure.Options;
 using Auth.Infrastructure.Providers;
 using Auth.Infrastructure.Repositories;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +29,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);
+builder.Services.AddScoped<IValidator<UserRegisterRequest>, RegisterRequestValidator>();
 
 builder.Services.AddDbContext<UserDbContext>(
     options =>
