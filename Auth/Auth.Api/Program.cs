@@ -25,11 +25,11 @@ foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 
 builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserCredentialsRepository, UserCredentialsCredentialsRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);
-builder.Services.AddScoped<IValidator<UserRegisterRequest>, RegisterRequestValidator>();
+builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 
 builder.Services.AddDbContext<UserDbContext>(
     options =>

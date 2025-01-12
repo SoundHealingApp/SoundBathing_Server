@@ -22,7 +22,7 @@ namespace Auth.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Auth.Infrastructure.Entites.UserEntity", b =>
+            modelBuilder.Entity("Auth.Infrastructure.Entites.UserCredentialsEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace Auth.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("UsersCredentials");
                 });
 #pragma warning restore 612, 618
         }

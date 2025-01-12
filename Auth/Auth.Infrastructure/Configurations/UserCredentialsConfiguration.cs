@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auth.Infrastructure.Configurations;
 
-public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
+public class UserCredentialsConfiguration : IEntityTypeConfiguration<UserCredentialsEntity>
 {
-    public void Configure(EntityTypeBuilder<UserEntity> builder)
+    public void Configure(EntityTypeBuilder<UserCredentialsEntity> builder)
     {
+        builder.ToTable("UserCredentials");
+        
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Email).IsRequired();

@@ -17,8 +17,8 @@ public class AuthController(IMediator mediator) : ControllerBase
 {
     [HttpPost("register")]
     public async Task<IActionResult> Register(
-        [FromBody] UserRegisterRequest request,
-        [FromServices] IValidator<UserRegisterRequest> validator,
+        [FromBody] RegisterRequest request,
+        [FromServices] IValidator<RegisterRequest> validator,
         CancellationToken cancellationToken)
     {
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -50,7 +50,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     
     [HttpPost("login")]
     public async Task<IActionResult> Login(
-        [FromBody] UserLoginRequest request,
+        [FromBody] LoginRequest request,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
@@ -60,7 +60,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         return result switch
         {
             { IsSuccess: true } => Ok(result.Data),
-            { ErrorResponse: IncorrectPassword err } => Problem(err.Message,
+            { ErrorResponse: IncorrectPasswordError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.Unauthorized),
             { ErrorResponse: UserNotFoundError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.Unauthorized),

@@ -13,10 +13,10 @@ public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
 {
     private readonly JwtOptions _options = options.Value;
 
-    public string GenerateToken(User user)
+    public string GenerateToken(UserCredentials userCredentials)
     {
         Claim[] claims = [
-            new ("userId", user.Id.ToString()),
+            new ("userId", userCredentials.Id.ToString()),
         ];
         
         var signingCredentials = new SigningCredentials(

@@ -5,7 +5,7 @@ services:
     container_name: postgres
     image: postgres:latest
     environment:
-      POSTGRES_DB: "user-credentials-db"
+      POSTGRES_DB: "sound-healing-db"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "123"
     volumes:

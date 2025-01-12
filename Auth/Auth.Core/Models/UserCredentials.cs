@@ -1,8 +1,8 @@
 namespace Auth.Core.Models;
 
-public class User
+public class UserCredentials
 {
-    private User(string email, string passwordHash)
+    private UserCredentials(string email, string passwordHash)
     {
         Id = Guid.NewGuid();
         Email = email;
@@ -15,9 +15,9 @@ public class User
     
     public string PasswordHash { get; }
 
-    public static User Create(string email, string passwordHash)
+    public static UserCredentials Create(string email, string passwordHash)
     {
-        var user = new User(email, passwordHash);
+        var user = new UserCredentials(email, passwordHash);
         return user;
     }
 }
