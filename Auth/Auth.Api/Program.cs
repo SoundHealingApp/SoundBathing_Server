@@ -1,4 +1,4 @@
-using Auth.Application.Contracts.Requests;
+using Auth.Application.Contracts.Requests.Auth;
 using Auth.Application.Interfaces;
 using Auth.Application.Validators;
 using Auth.Core.Interfaces;
@@ -25,7 +25,8 @@ foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 
 builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
 
-builder.Services.AddScoped<IUserCredentialsRepository, UserCredentialsCredentialsRepository>();
+builder.Services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);

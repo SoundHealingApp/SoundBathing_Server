@@ -1,4 +1,5 @@
 using Auth.Application.Contracts.Requests;
+using Auth.Application.Contracts.Requests.Auth;
 using FluentValidation;
 
 namespace Auth.Application.Validators;

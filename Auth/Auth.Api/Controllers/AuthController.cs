@@ -1,7 +1,10 @@
 using System.Net;
 using Auth.Application.Commands;
+using Auth.Application.Commands.Auth;
 using Auth.Application.Contracts.Requests;
+using Auth.Application.Contracts.Requests.Auth;
 using Auth.Application.Errors;
+using Auth.Application.Errors.Auth;
 using CQRS;
 using FluentValidation;
 using MediatR;
@@ -12,7 +15,7 @@ namespace Auth.Controllers;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("auth")]
 public class AuthController(IMediator mediator) : ControllerBase
 {
     [HttpPost("register")]
@@ -41,7 +44,7 @@ public class AuthController(IMediator mediator) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } => Ok(),
+            { IsSuccess: true } => Ok(result.Data.ToTuple()),
             { ErrorResponse: UserAlreadyExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.UnprocessableEntity),
             _ => throw new UnexpectedErrorResponseException()
@@ -49,9 +52,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost("login")]
-    public async Task<IActionResult> Login(
-        [FromBody] LoginRequest request,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
             new LoginCommand(request.Email, request.Password),
@@ -59,10 +60,10 @@ public class AuthController(IMediator mediator) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } => Ok(result.Data),
+            { IsSuccess: true } => Ok(result.Data.ToTuple()),
             { ErrorResponse: IncorrectPasswordError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.Unauthorized),
-            { ErrorResponse: UserNotFoundError err } => Problem(err.Message,
+            { ErrorResponse: UserWithEmailNotFoundError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.Unauthorized),
             _ => throw new UnexpectedErrorResponseException()
         };

@@ -1,3 +1,3 @@
-namespace Auth.Application.Contracts.Requests;
+namespace Auth.Application.Contracts.Requests.Auth;
 
 public record LoginRequest(string Email, string Password);

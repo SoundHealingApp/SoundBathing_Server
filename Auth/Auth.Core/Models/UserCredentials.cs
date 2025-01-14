@@ -2,22 +2,26 @@ namespace Auth.Core.Models;
 
 public class UserCredentials
 {
-    private UserCredentials(string email, string passwordHash)
+    public UserCredentials(string email, string passwordHash)
     {
         Id = Guid.NewGuid();
         Email = email;
         PasswordHash = passwordHash;
     }
     
-    public Guid Id { get; }
-    
-    public string Email { get; }
-    
-    public string PasswordHash { get; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+
+    public string Email { get; private set; }
+
+    public string PasswordHash { get; private set;}
 
     public static UserCredentials Create(string email, string passwordHash)
     {
         var user = new UserCredentials(email, passwordHash);
         return user;
     }
+    
+#pragma warning disable CS8618, CS9264
+    public UserCredentials() { }
+#pragma warning restore CS8618, CS9264
 }

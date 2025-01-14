@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="sound-healing-db@localhost" uuid="1c3dee95-5882-4c9b-8799-707adf0aaf22">
+    <data-source source="LOCAL" name="sound-healing-db@localhost" uuid="08cc471a-0d5d-4d4d-aa20-3edbba834c30">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>
