@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "SoundHealing.Core/1.0.0": {
+        "runtime": {
+          "SoundHealing.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SoundHealing.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
