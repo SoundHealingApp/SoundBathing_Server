@@ -1,0 +1,12 @@
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/bin/Debug/net9.0/SoundHealing.Core.deps.json
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/bin/Debug/net9.0/SoundHealing.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/bin/Debug/net9.0/SoundHealing.Core.pdb
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.AssemblyInfoInputs.cache
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.AssemblyInfo.cs
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.csproj.CoreCompileInputs.cache
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.sourcelink.json
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/refint/SoundHealing.Core.dll
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/SoundHealing.Core.pdb
+/Users/irinapecik/Documents/Projects/SoundHealing/Auth/Auth/SoundHealing.Core/obj/Debug/net9.0/ref/SoundHealing.Core.dll

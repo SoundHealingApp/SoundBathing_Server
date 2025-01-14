@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundHealing.Api", "SoundHealing.Api\SoundHealing.Api.csproj", "{95F375B0-C264-4A86-88F2-C0B911327EFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundHealing.Core", "SoundHealing.Core\SoundHealing.Core.csproj", "{438DC722-395D-48A9-83E8-36B9B1793E6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundHealing.Infrastructure", "SoundHealing.Infrastructure\SoundHealing.Infrastructure.csproj", "{78A00E20-79D6-4B5C-9DBA-C6950B9AC0B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundHealing.Application", "SoundHealing.Application\SoundHealing.Application.csproj", "{CD46FED6-597F-472B-AB71-171B8B6C29E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95F375B0-C264-4A86-88F2-C0B911327EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95F375B0-C264-4A86-88F2-C0B911327EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95F375B0-C264-4A86-88F2-C0B911327EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95F375B0-C264-4A86-88F2-C0B911327EFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438DC722-395D-48A9-83E8-36B9B1793E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438DC722-395D-48A9-83E8-36B9B1793E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438DC722-395D-48A9-83E8-36B9B1793E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438DC722-395D-48A9-83E8-36B9B1793E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78A00E20-79D6-4B5C-9DBA-C6950B9AC0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78A00E20-79D6-4B5C-9DBA-C6950B9AC0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78A00E20-79D6-4B5C-9DBA-C6950B9AC0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78A00E20-79D6-4B5C-9DBA-C6950B9AC0B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD46FED6-597F-472B-AB71-171B8B6C29E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD46FED6-597F-472B-AB71-171B8B6C29E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD46FED6-597F-472B-AB71-171B8B6C29E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD46FED6-597F-472B-AB71-171B8B6C29E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
