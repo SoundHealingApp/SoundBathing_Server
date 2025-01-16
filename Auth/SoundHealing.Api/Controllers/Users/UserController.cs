@@ -1,5 +1,4 @@
 using System.Net;
-using Auth.Application.Contracts.Requests;
 using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +6,7 @@ using SoundHealing.Application.Commands.UserData;
 using SoundHealing.Application.Contracts.Requests;
 using SoundHealing.Application.Errors.Auth;
 
-namespace SoundHealing.Controllers;
+namespace SoundHealing.Controllers.Users;
 
 [ApiController]
 [Route("users")]

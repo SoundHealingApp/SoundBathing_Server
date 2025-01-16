@@ -1,4 +1,3 @@
-using Auth.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using SoundHealing.Core.Interfaces;
 using SoundHealing.Core.Models;

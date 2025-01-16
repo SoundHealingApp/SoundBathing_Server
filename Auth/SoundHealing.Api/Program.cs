@@ -1,5 +1,4 @@
 using Auth.Application.Contracts.Requests.Auth;
-using Auth.Infrastructure;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using SoundHealing.Application.Interfaces;
@@ -28,6 +27,8 @@ builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOption
 
 builder.Services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMediationRepository, MeditationRepository>();
+
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);

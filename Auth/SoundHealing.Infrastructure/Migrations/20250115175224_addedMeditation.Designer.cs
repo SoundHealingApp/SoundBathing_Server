@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SoundHealing.Infrastructure;
@@ -11,9 +12,11 @@ using SoundHealing.Infrastructure;
 namespace Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250115175224_addedMeditation")]
+    partial class addedMeditation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace Auth.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("MeditationUser", b =>
-                {
-                    b.Property<Guid>("LikedMeditationsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("LikedUsersId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("LikedMeditationsId", "LikedUsersId");
-
-                    b.HasIndex("LikedUsersId");
-
-                    b.ToTable("MeditationUser");
-                });
 
             modelBuilder.Entity("SoundHealing.Core.Models.Meditation", b =>
                 {
@@ -88,13 +76,11 @@ namespace Auth.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -104,6 +90,7 @@ namespace Auth.Infrastructure.Migrations
             modelBuilder.Entity("SoundHealing.Core.Models.UserCredentials", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
@@ -117,30 +104,6 @@ namespace Auth.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UsersCredentials");
-                });
-
-            modelBuilder.Entity("MeditationUser", b =>
-                {
-                    b.HasOne("SoundHealing.Core.Models.Meditation", null)
-                        .WithMany()
-                        .HasForeignKey("LikedMeditationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoundHealing.Core.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("LikedUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SoundHealing.Core.Models.UserCredentials", b =>
-                {
-                    b.HasOne("SoundHealing.Core.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("SoundHealing.Core.Models.UserCredentials", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

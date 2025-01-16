@@ -17,6 +17,8 @@ public class User
     public string Surname { get; private set; }
 
     public DateTime BirthDate { get; private set; }
+
+    public List<Meditation> LikedMeditations { get; set; } = [];
     
 #pragma warning disable CS8618, CS9264
     public User() {}

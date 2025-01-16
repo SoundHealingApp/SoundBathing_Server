@@ -19,9 +19,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(100);
         
         builder.Property(x => x.BirthDate).IsRequired();
-
+        
         builder.HasOne<UserCredentials>()
             .WithOne()
             .HasForeignKey<UserCredentials>(x => x.Id);
+    
+        builder
+            .HasMany(x => x.LikedMeditations)
+            .WithMany(x => x.LikedUsers);
     }
 }

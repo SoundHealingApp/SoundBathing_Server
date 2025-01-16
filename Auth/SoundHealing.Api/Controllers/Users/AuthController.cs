@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SoundHealing.Application.Commands.Auth;
 using SoundHealing.Application.Errors.Auth;
 
-namespace SoundHealing.Controllers;
+namespace SoundHealing.Controllers.Users;
 
 
 [ApiController]
