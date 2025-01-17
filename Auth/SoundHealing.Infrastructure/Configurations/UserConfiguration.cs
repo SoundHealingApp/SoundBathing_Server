@@ -26,6 +26,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     
         builder
             .HasMany(x => x.LikedMeditations)
-            .WithMany(x => x.LikedUsers);
+            .WithMany();
     }
 }

@@ -24,25 +24,23 @@ public class Meditation
         Frequency = frequency;
     }
 
-    public Guid Id { get; set; }
+    public Guid Id { get; }
     
-    public string Title { get; set; }
+    public string Title { get; }
     
-    public string Description { get; set; }
+    public string Description { get;  }
     
-    public MeditationType MeditationType { get; set; }
+    public MeditationType MeditationType { get; }
     
-    public string TherapeuticPurpose { get; set; } // TODO: Потом можно сделать enum
-    
-    public double? Rating { get; set; } // от 1 до 5
-    
-    public string ImageLink { get; set; }
-    
-    public string VideoLink { get; set; }
-    
-    public double Frequency { get; set; }
+    public string TherapeuticPurpose { get; } // TODO: Потом можно сделать enum
 
-    public List<User> LikedUsers { get; set; } = [];
+    public double? Rating { get; } // от 1 до 5
+    
+    public string ImageLink { get; }
+    
+    public string VideoLink { get; }
+    
+    public double Frequency { get; }
     
     private int SumOfUserRatings { get; set; }
     

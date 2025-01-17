@@ -25,9 +25,5 @@ public class MeditationConfiguration : IEntityTypeConfiguration<Meditation>
         builder.Property(x => x.VideoLink);
 
         builder.Property(x => x.Frequency);
-
-        builder
-            .HasMany(x => x.LikedUsers)
-            .WithMany(x => x.LikedMeditations);
     }
 }

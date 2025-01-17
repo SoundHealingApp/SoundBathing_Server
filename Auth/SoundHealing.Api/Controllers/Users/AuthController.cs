@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SoundHealing.Application.Commands.Auth;
-using SoundHealing.Application.Errors.Auth;
+using SoundHealing.Application.Errors.AuthErrors;
 
 namespace SoundHealing.Controllers.Users;
 

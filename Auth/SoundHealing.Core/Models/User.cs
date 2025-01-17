@@ -18,7 +18,12 @@ public class User
 
     public DateTime BirthDate { get; private set; }
 
-    public List<Meditation> LikedMeditations { get; set; } = [];
+    public HashSet<Meditation> LikedMeditations { get; } = []; // TODO: HashSet?
+
+    public void SetLikeToMeditation(Meditation meditation)
+    {
+        LikedMeditations.Add(meditation);
+    }
     
 #pragma warning disable CS8618, CS9264
     public User() {}

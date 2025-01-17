@@ -9,7 +9,7 @@ public class UserCredentials
         PasswordHash = passwordHash;
     }
     
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
 
     public string Email { get; private set; }
 
