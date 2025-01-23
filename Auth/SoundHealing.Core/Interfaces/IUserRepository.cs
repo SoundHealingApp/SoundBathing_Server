@@ -10,5 +10,7 @@ public interface IUserRepository
     
     public Task<bool> SetLikeToMeditationAsync(Guid userId, Guid meditationId, CancellationToken cancellationToken);
     
+    public Task<bool> DeleteLikeFromMeditationAsync(Guid userId, Guid meditationId, CancellationToken cancellationToken);
+    
     public Task<List<Meditation>> GetLikedMeditationsAsync(Guid userId, CancellationToken cancellationToken);
 }

@@ -43,6 +43,22 @@ public class UserRepository(UserDbContext userDbContext) : IUserRepository
         return true;
     }
 
+    public async Task<bool> DeleteLikeFromMeditationAsync(Guid userId, Guid meditationId, CancellationToken cancellationToken)
+    {
+        var user = await userDbContext.Users
+            .Include(user => user.LikedMeditations)
+            .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
+        
+        if (user == null)
+            return false;
+        
+        user.DeleteLikeFromMeditation(meditationId);
+        
+        await userDbContext.SaveChangesAsync(cancellationToken);
+        
+        return true;
+    }
+
     public async Task<List<Meditation>> GetLikedMeditationsAsync(Guid userId, CancellationToken cancellationToken)
     {
         // TODO: проверять что пользователь существует

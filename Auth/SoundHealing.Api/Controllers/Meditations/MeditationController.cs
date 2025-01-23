@@ -3,6 +3,7 @@ using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.Meditations;
+using SoundHealing.Application.Commands.Meditations.MeditationsFilesCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Core.Enums;
@@ -17,8 +18,8 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Добавить новую медитацию
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> AddMeditationAsync(
-        [FromBody] AddMeditationRequest request,
+    public async Task<IActionResult> AddAsync(
+        [FromForm] AddMeditationRequest request,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
@@ -37,7 +38,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Получить список медитаций по типу
     /// </summary>
     [HttpGet("type/{meditationType}")]
-    public async Task<IActionResult> GetMeditationsByTypeAsync(
+    public async Task<IActionResult> GetByTypeAsync(
         [FromRoute] MeditationType meditationType,
         CancellationToken cancellationToken)
     {
@@ -56,7 +57,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Получить информацию о медитации по ID
     /// </summary>
     [HttpGet("{meditationId}")]
-    public async Task<IActionResult> GetMeditationInfoByIdAsync(
+    public async Task<IActionResult> GetInfoByIdAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
     {
@@ -70,5 +71,33 @@ public class MeditationController(IMediator mediator) : ControllerBase
                 err.Message, statusCode: (int)HttpStatusCode.NotFound),
             _ => throw new UnexpectedErrorResponseException()
         };
+    }
+
+    /// <summary>
+    /// Скачать изображение медитации
+    /// </summary>
+    [HttpGet("{meditationId}/image")]
+    public async Task<IResult> DownloadImageAsync(
+        [FromRoute] Guid meditationId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new GetMeditationImageCommand(meditationId), cancellationToken);
+        
+        return result;
+    }
+    
+    /// <summary>
+    /// Скачать аудио медитации
+    /// </summary>
+    [HttpGet("{meditationId}/audio")]
+    public async Task<IResult> DownloadAudioAsync(
+        [FromRoute] Guid meditationId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new GetMeditationAudioCommand(meditationId), cancellationToken);
+        
+        return result;
     }
 }

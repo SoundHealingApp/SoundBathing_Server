@@ -24,6 +24,11 @@ public class User
     {
         LikedMeditations.Add(meditation);
     }
+
+    public void DeleteLikeFromMeditation(Guid meditationId)
+    {
+        LikedMeditations.RemoveWhere(x => x.Id == meditationId);
+    }
     
 #pragma warning disable CS8618, CS9264
     public User() {}

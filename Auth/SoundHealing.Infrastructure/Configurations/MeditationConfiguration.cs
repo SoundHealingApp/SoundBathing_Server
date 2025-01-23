@@ -16,13 +16,13 @@ public class MeditationConfiguration : IEntityTypeConfiguration<Meditation>
         
         builder.Property(x => x.MeditationType).IsRequired();
         
-        builder.Property(x => x.TherapeuticPurpose).IsRequired();
+        builder.Property(x => x.TherapeuticPurpose);
 
         builder.Property(x => x.Rating);
         
         builder.Property(x => x.ImageLink);
         
-        builder.Property(x => x.VideoLink);
+        builder.Property(x => x.AudioLink);
 
         builder.Property(x => x.Frequency);
     }

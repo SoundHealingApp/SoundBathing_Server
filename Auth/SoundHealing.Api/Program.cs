@@ -1,6 +1,9 @@
+using Amazon;
+using Amazon.S3;
 using Auth.Application.Contracts.Requests.Auth;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SoundHealing.Application.Interfaces;
 using SoundHealing.Application.Validators;
 using SoundHealing.Core.Interfaces;
@@ -28,11 +31,24 @@ builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOption
 builder.Services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMediationRepository, MeditationRepository>();
+builder.Services.AddScoped<IS3Repository, S3Repository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
+
+builder.Services.Configure<S3Settings>(builder.Configuration.GetSection(nameof(S3Settings)));
+builder.Services.AddSingleton<IAmazonS3>(sp =>
+{
+    var s3Settings = sp.GetRequiredService<IOptions<S3Settings>>().Value;
+    var config = new AmazonS3Config
+    {
+        RegionEndpoint = RegionEndpoint.GetBySystemName(s3Settings.Region),
+    };
+    return new AmazonS3Client(s3Settings.AccessKey, s3Settings.SecretKey, config);
+});
+
 
 builder.Services.AddDbContext<UserDbContext>(
     options =>

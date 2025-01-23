@@ -2,7 +2,7 @@ using CQRS;
 using MediatR;
 using SoundHealing.Core.Interfaces;
 
-namespace SoundHealing.Application.Commands.LikeMeditationsCommand;
+namespace SoundHealing.Application.Commands.Meditations.LikeMeditationsCommand;
 
 public record LikeMeditationCommand(Guid userId, Guid meditationId) : IRequest<Result<bool>>;
 

@@ -13,7 +13,9 @@ public class LoginCommandHandler(
     IPasswordHasher passwordHasher,
     IJwtProvider jwtProvider) : IRequestHandler<LoginCommand, Result<(string Token, string UserId)>>
 {
-    public async Task<Result<(string Token, string UserId)>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<Result<(string Token, string UserId)>> Handle(
+        LoginCommand request,
+        CancellationToken cancellationToken)
     {
         var userCredentials = await userCredentialsRepository.GetByEmailAsync(request.Email);
 

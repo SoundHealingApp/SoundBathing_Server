@@ -7,4 +7,10 @@
         <RootNamespace>SoundHealing.Core</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.0-preview.5" />
+      <PackageReference Include="AWSSDK.S3" Version="4.0.0-preview.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    </ItemGroup>
+
 </Project>

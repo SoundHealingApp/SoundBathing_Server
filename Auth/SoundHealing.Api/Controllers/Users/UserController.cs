@@ -2,7 +2,6 @@ using System.Net;
 using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SoundHealing.Application.Commands.LikeMeditationsCommand;
 using SoundHealing.Application.Commands.Meditations.LikeMeditationsCommand;
 using SoundHealing.Application.Commands.UserData;
 using SoundHealing.Application.Contracts.Requests.UserEdit;
@@ -15,6 +14,9 @@ namespace SoundHealing.Controllers.Users;
 [Route("users")]
 public class UserController(IMediator mediator) : ControllerBase
 {
+    /// <summary>
+    /// Добавить данные о пользователе.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> AddUserData(
         [FromBody] AddUserRequest command, 
@@ -33,6 +35,9 @@ public class UserController(IMediator mediator) : ControllerBase
         };
     }
 
+    /// <summary>
+    /// Получить информацию о пользователе.
+    /// </summary>
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUserData(
         [FromRoute] string userId,
@@ -66,7 +71,26 @@ public class UserController(IMediator mediator) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } => Ok(result.Data),
+            { IsSuccess: true } => Ok(),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
+    /// <summary>
+    /// Удалить медитацию из понравившихся
+    /// </summary>
+    [HttpDelete("users/{userId}/meditations/{meditationId}/like")]
+    public async Task<IActionResult> DeleteLikeFromMeditation(
+        [FromRoute] Guid userId,
+        [FromRoute] Guid meditationId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new DeleteLikeFromMeditationCommand(userId, meditationId), cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
             _ => throw new UnexpectedErrorResponseException()
         };
     }

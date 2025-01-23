@@ -8,10 +8,8 @@ public class Meditation
         string title,
         string description,
         MeditationType meditationType,
-        string therapeuticPurpose,
-        string imageLink,
-        string videoLink,
-        double frequency)
+        string? therapeuticPurpose,
+        double? frequency)
     {
         Id = Guid.NewGuid();
         
@@ -19,8 +17,6 @@ public class Meditation
         Description = description;
         MeditationType = meditationType;
         TherapeuticPurpose = therapeuticPurpose;
-        ImageLink = imageLink;
-        VideoLink = videoLink;
         Frequency = frequency;
     }
 
@@ -32,15 +28,15 @@ public class Meditation
     
     public MeditationType MeditationType { get; }
     
-    public string TherapeuticPurpose { get; } // TODO: Потом можно сделать enum
+    public string? TherapeuticPurpose { get; }
 
     public double? Rating { get; } // от 1 до 5
     
-    public string ImageLink { get; }
+    public string ImageLink { get; private set; }
     
-    public string VideoLink { get; }
+    public string AudioLink { get; private set; }
     
-    public double Frequency { get; }
+    public double? Frequency { get; }
     
     private int SumOfUserRatings { get; set; }
     
@@ -53,4 +49,14 @@ public class Meditation
     }
 
     public double GetRating() => (double)SumOfUserRatings / TotalUserRatingsCount;
+    
+    public void SetS3Keys(string imageKey, string audioKey)
+    {
+        ImageLink = imageKey;
+        AudioLink = audioKey;
+    }
+
+#pragma warning disable CS8618, CS9264
+    public Meditation() {}
+#pragma warning restore CS8618, CS9264
 }
