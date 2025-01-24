@@ -1,6 +1,5 @@
 using Amazon;
 using Amazon.S3;
-using Auth.Application.Contracts.Requests.Auth;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -38,6 +37,7 @@ builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
+builder.Services.AddScoped<IValidator<ChangeCredentialsRequest>, ChangeCredentialsRequestValidator>();
 
 builder.Services.Configure<S3Settings>(builder.Configuration.GetSection(nameof(S3Settings)));
 builder.Services.AddSingleton<IAmazonS3>(sp =>

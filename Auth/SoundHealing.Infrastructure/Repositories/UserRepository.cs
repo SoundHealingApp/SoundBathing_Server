@@ -23,5 +23,13 @@ public class UserRepository(UserDbContext userDbContext) : IUserRepository
         return user;
     }
     
+    public async Task<User?> GetByIdAsyncWithoutIncludes(Guid userId, CancellationToken cancellationToken)
+    {
+        var user = await userDbContext.Users
+            .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
+        
+        return user;
+    }
+    
     public Task SaveChangesAsync(CancellationToken cancellationToken) => userDbContext.SaveChangesAsync(cancellationToken);
 }

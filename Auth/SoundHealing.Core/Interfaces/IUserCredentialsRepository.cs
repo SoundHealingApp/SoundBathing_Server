@@ -7,4 +7,8 @@ public interface IUserCredentialsRepository
     public Task<Guid> AddAsync(UserCredentials userCredentials);
     
     public Task<UserCredentials?> GetByEmailAsync(string email);
+    
+    public Task<UserCredentials?> GetByUserIdAsync(Guid userId);
+    
+    public Task SaveChangesAsync(CancellationToken cancellationToken);
 }

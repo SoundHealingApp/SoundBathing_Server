@@ -40,6 +40,13 @@ public class User
         RecommendedMeditations.UnionWith(meditations); // Гарантируем уникальность.
     }
 
+    public void ChangeName(string name) => Name = name;
+    
+    public void ChangeSurname(string surname) => Surname = surname;
+    
+    public void ChangeBirthDate(DateOnly birthDate) => BirthDate = birthDate;
+    
+
 #pragma warning disable CS8618, CS9264
     public User() {}
 #pragma warning restore CS8618, CS9264

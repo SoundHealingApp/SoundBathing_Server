@@ -1,5 +1,4 @@
 using System.Net;
-using Auth.Application.Contracts.Requests.Auth;
 using CQRS;
 using FluentValidation;
 using MediatR;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SoundHealing.Application.Commands.Auth;
 using SoundHealing.Application.Contracts.Requests.Auth;
 using SoundHealing.Application.Errors.AuthErrors;
+using SoundHealing.Application.Errors.UsersErrors;
 
 namespace SoundHealing.Controllers.Users;
 
@@ -63,6 +63,40 @@ public class AuthController(IMediator mediator) : ControllerBase
                 statusCode: (int)HttpStatusCode.Unauthorized),
             { ErrorResponse: UserWithEmailNotFoundError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.Unauthorized),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+
+    [HttpPost("{userId}/change-credentials")]
+    public async Task<IActionResult> ChangeCredentials(
+        [FromRoute] Guid userId,
+        [FromBody] ChangeCredentialsRequest request,
+        [FromServices] IValidator<ChangeCredentialsRequest> validator,
+        CancellationToken cancellationToken)
+    {
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            var modelStateDictionary = new ModelStateDictionary();
+            
+            foreach (var failure in validationResult.Errors)
+            {
+                modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+            }
+
+            return ValidationProblem(modelStateDictionary);
+        }
+        
+        var result = await mediator.Send(
+            new ChangeCredentialsCommand(userId, request.Email, request.Password),
+            cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: UserWithIdNotFoundError err } => Problem(err.Message,
+                statusCode: (int)HttpStatusCode.NotFound),
             _ => throw new UnexpectedErrorResponseException()
         };
     }

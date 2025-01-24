@@ -8,5 +8,7 @@ public interface IUserRepository
     
     public Task<User?> GetByIdAsync(Guid userId, CancellationToken cancellationToken);
     
+    public Task<User?> GetByIdAsyncWithoutIncludes(Guid userId, CancellationToken cancellationToken);
+    
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }

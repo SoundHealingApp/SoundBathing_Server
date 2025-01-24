@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.Meditations.LikeMeditationsCommand;
 using SoundHealing.Application.Commands.Meditations.RecommendMeditationsCommands;
 using SoundHealing.Application.Commands.UserData;
-using SoundHealing.Application.Contracts.Requests.UserEdit;
+using SoundHealing.Application.Contracts.Requests.User;
 using SoundHealing.Application.Errors.AuthErrors;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
@@ -55,6 +55,25 @@ public class UserController(IMediator mediator) : ControllerBase
                 err.Message, statusCode: (int)HttpStatusCode.NotFound),
             { ErrorResponse: UserAlreadyExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.Conflict),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
+    [HttpPost("{userId:guid}/change-data")]
+    public async Task<IActionResult> ChangeUserData(
+        [FromRoute] Guid userId,
+        [FromBody] ChangeUserDataRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new ChangeUserDataCommand(userId, request.Name, request.Surname, request.BirthDate),
+            cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: UserWithIdNotFoundError err } => Problem(err.Message,
+                statusCode: (int)HttpStatusCode.NotFound),
             _ => throw new UnexpectedErrorResponseException()
         };
     }

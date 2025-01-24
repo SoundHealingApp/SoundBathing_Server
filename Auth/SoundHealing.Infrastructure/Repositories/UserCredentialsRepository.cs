@@ -22,4 +22,15 @@ public class UserCredentialsRepository(UserDbContext userDbContext) : IUserCrede
 
         return userCredentials;
     }
+
+    public async Task<UserCredentials?> GetByUserIdAsync(Guid userId)
+    {
+        var userCredentials = await userDbContext.UsersCredentials
+            .FirstOrDefaultAsync(x => x.Id == userId);
+        
+        return userCredentials;
+    }
+
+    public Task SaveChangesAsync(CancellationToken cancellationToken) => 
+        userDbContext.SaveChangesAsync(cancellationToken);
 }

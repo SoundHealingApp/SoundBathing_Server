@@ -1,5 +1,6 @@
 namespace SoundHealing.Core.Models;
 
+// TODO: проверка Email
 public class UserCredentials
 {
     public UserCredentials(string email, string passwordHash)
@@ -19,6 +20,16 @@ public class UserCredentials
     {
         var user = new UserCredentials(email, passwordHash);
         return user;
+    }
+
+    public void ChangeEmail(string email)
+    {
+        Email = email;
+    }
+
+    public void ChangePasswordHash(string passwordHash)
+    {
+        PasswordHash = passwordHash;
     }
     
 #pragma warning disable CS8618, CS9264
