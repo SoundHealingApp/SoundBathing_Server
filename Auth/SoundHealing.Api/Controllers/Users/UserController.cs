@@ -25,12 +25,12 @@ public class UserController(IMediator mediator) : ControllerBase
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
-            new AddUserCommand(command.UserCredentialsId, command.Name, command.Surname, command.BirthDate),
+            new AddUserCommand(command.UserId, command.Name, command.Surname, command.BirthDate),
             cancellationToken);
 
         return result switch
         {
-            { IsSuccess: true } => Ok(result.Data),
+            { IsSuccess: true } => Ok(),
             { ErrorResponse: UserAlreadyExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.Conflict),
             _ => throw new UnexpectedErrorResponseException()

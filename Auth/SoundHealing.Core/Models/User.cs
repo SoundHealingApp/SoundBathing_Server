@@ -2,12 +2,12 @@ namespace SoundHealing.Core.Models;
 
 public class User
 {
-    public User(string id, string name, string surname, DateTime birthDate)
+    public User(string id, string name, string surname, DateOnly birthDate)
     {
         Id =  Guid.Parse(id);
         Name = name;
         Surname = surname;
-        BirthDate = birthDate.Date;
+        BirthDate = birthDate;
     }
     
     public Guid Id { get; init; }
@@ -16,7 +16,7 @@ public class User
 
     public string Surname { get; private set; }
 
-    public DateTime BirthDate { get; private set; }
+    public DateOnly BirthDate { get; private set; }
 
     public HashSet<Meditation> LikedMeditations { get; } = [];
     

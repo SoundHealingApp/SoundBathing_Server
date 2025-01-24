@@ -42,7 +42,7 @@ public class AuthController(IMediator mediator) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } => Ok(result.Data.ToTuple()),
+            { IsSuccess: true } => Ok(result.Data),
             { ErrorResponse: UserAlreadyExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.UnprocessableEntity),
             _ => throw new UnexpectedErrorResponseException()

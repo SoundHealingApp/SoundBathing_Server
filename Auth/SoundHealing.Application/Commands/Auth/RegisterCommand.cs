@@ -7,14 +7,15 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Application.Commands.Auth;
 
-public record RegisterCommand(string Email, string Password) : IRequest<Result<(string Token, string UserId)>>;
+public record RegisterResponse(string Token, string UserId);
+public record RegisterCommand(string Email, string Password) : IRequest<Result<RegisterResponse>>;
 
 internal sealed class RegisterCommandHandler(
     IUserCredentialsRepository userCredentialsRepository,
     IPasswordHasher passwordHasher,
-    IJwtProvider jwtProvider) : IRequestHandler<RegisterCommand, Result<(string Token, string UserId)>>
+    IJwtProvider jwtProvider) : IRequestHandler<RegisterCommand, Result<RegisterResponse>>
 {
-    public async Task<Result<(string Token, string UserId)>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegisterResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         if (await userCredentialsRepository.GetByEmailAsync(request.Email) != null)
             return new UserAlreadyExistsError(request.Email);
@@ -27,6 +28,6 @@ internal sealed class RegisterCommandHandler(
         
         var token = jwtProvider.GenerateToken(userCredentials);
 
-        return(token, userCredentials.Id.ToString());
+        return new RegisterResponse(Token: token, UserId: userCredentials.Id.ToString());
     }
 }

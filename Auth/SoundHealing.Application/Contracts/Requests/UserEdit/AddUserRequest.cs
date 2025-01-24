@@ -1,3 +1,3 @@
 namespace SoundHealing.Application.Contracts.Requests.UserEdit;
 
-public record AddUserRequest(string UserCredentialsId, string Name, string Surname, DateTime BirthDate);
+public record AddUserRequest(string UserId, string Name, string Surname, DateOnly BirthDate);

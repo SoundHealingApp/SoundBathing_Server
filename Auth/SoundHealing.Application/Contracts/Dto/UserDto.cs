@@ -1,6 +1,6 @@
 namespace SoundHealing.Application.Contracts.Dto;
 
-public class UserDto(Guid id, string name, string surname, DateTime birthDate)
+public class UserDto(Guid id, string name, string surname, DateOnly birthDate)
 {
     public Guid Id { get; init; } = id;
 
@@ -8,5 +8,5 @@ public class UserDto(Guid id, string name, string surname, DateTime birthDate)
 
     public string Surname { get; private set; } = surname;
 
-    public DateTime BirthDate { get; private set; } = birthDate;
+    public DateOnly BirthDate { get; private set; } = birthDate;
 }

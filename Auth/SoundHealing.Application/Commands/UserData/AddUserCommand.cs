@@ -6,7 +6,7 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Application.Commands.UserData;
 
-public record AddUserCommand(string UserId, string Name, string Surname, DateTime BirthDate)
+public record AddUserCommand(string UserId, string Name, string Surname, DateOnly BirthDate)
     : IRequest<Result<Unit>>;
 
 internal sealed class AddUserCommandHandler(IUserRepository userRepository)
