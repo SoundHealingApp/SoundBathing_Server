@@ -72,6 +72,26 @@ public class MeditationController(IMediator mediator) : ControllerBase
             _ => throw new UnexpectedErrorResponseException()
         };
     }
+    
+    /// <summary>
+    /// Удалить медитацию по Id.
+    /// </summary>
+    [HttpDelete("{meditationId}")]
+    public async Task<IActionResult> DeleteByIdAsync(
+        [FromRoute] Guid meditationId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new DeleteMeditationByIdCommand(meditationId), cancellationToken);
+        
+        return result switch
+        {
+            { IsSuccess: true } => Ok(result.Data),
+            { ErrorResponse: MeditationWithIdDoesNotExists err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.NotFound),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
 
     /// <summary>
     /// Скачать изображение медитации

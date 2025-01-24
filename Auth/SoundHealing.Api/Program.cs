@@ -4,6 +4,7 @@ using Auth.Application.Contracts.Requests.Auth;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SoundHealing.Application.Contracts.Requests.Auth;
 using SoundHealing.Application.Interfaces;
 using SoundHealing.Application.Validators;
 using SoundHealing.Core.Interfaces;

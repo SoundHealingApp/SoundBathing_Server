@@ -14,8 +14,15 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
         await userDbContext.Meditations.AddAsync(meditation, cancellationToken);
         await userDbContext.SaveChangesAsync(cancellationToken);
     }
+    
+    public async Task DeleteAsync(Meditation meditation, CancellationToken cancellationToken)
+    {
+        userDbContext.Meditations.Remove(meditation);
+        
+        await userDbContext.SaveChangesAsync(cancellationToken);
+    }
 
-    public Task<bool> IsMeditationExistsAsync(string title, CancellationToken cancellationToken)
+    public Task<bool> IsExistsAsync(string title, CancellationToken cancellationToken)
     {
         var meditation = userDbContext.Meditations
             .AsNoTracking()
@@ -24,7 +31,7 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
         return Task.FromResult(meditation != null);
     }
 
-    public async Task<List<Meditation>?> GetMeditationsByTypeAsync(
+    public async Task<List<Meditation>?> GetByTypeAsync(
         MeditationType meditationType,
         CancellationToken cancellationToken)
     {
@@ -36,13 +43,28 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
         return meditations;
     }
 
-    public async Task<Meditation?> GetMeditationByIdAsync(Guid meditationId, CancellationToken cancellationToken)
+    public async Task<Meditation?> GetByIdAsync(Guid meditationId, CancellationToken cancellationToken)
     {
         var meditation = await userDbContext.Meditations
-            .AsNoTracking()
+            // .AsNoTracking()
             .Where(x => x.Id == meditationId)
             .FirstOrDefaultAsync(cancellationToken);
 
         return meditation;
     }
+
+    public async Task<List<Meditation>> GetMeditationsWithIdsAsync(
+        List<Guid> meditationsIds,
+        CancellationToken cancellationToken)
+    {
+        var meditations = await userDbContext.Meditations
+            // .AsNoTracking()
+            .Where(x => meditationsIds.Contains(x.Id))
+            .ToListAsync(cancellationToken);
+
+        return meditations;
+    }
+
+    public Task SaveChangesAsync(CancellationToken cancellationToken) =>
+        userDbContext.SaveChangesAsync(cancellationToken);
 }

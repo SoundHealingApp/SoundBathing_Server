@@ -1,5 +1,6 @@
 using Auth.Application.Contracts.Requests.Auth;
 using FluentValidation;
+using SoundHealing.Application.Contracts.Requests.Auth;
 
 namespace SoundHealing.Application.Validators;
 

@@ -56,6 +56,14 @@ public class Meditation
         AudioLink = audioKey;
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Meditation other) return false;
+        return Id == other.Id;
+    }
+
+    public override int GetHashCode() => Id.GetHashCode();
+
 #pragma warning disable CS8618, CS9264
     public Meditation() {}
 #pragma warning restore CS8618, CS9264

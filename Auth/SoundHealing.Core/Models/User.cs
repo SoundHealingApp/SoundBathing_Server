@@ -7,7 +7,7 @@ public class User
         Id =  Guid.Parse(id);
         Name = name;
         Surname = surname;
-        BirthDate = birthDate;
+        BirthDate = birthDate.Date;
     }
     
     public Guid Id { get; init; }
@@ -18,18 +18,28 @@ public class User
 
     public DateTime BirthDate { get; private set; }
 
-    public HashSet<Meditation> LikedMeditations { get; } = []; // TODO: HashSet?
+    public HashSet<Meditation> LikedMeditations { get; } = [];
+    
+    public HashSet<Meditation> RecommendedMeditations { get; } = [];
 
     public void SetLikeToMeditation(Meditation meditation)
     {
         LikedMeditations.Add(meditation);
     }
 
-    public void DeleteLikeFromMeditation(Guid meditationId)
+    public void DeleteLikeFromMeditation(Meditation meditation)
     {
-        LikedMeditations.RemoveWhere(x => x.Id == meditationId);
+        LikedMeditations.Remove(meditation);
     }
-    
+
+    public void AddRecommendedMeditations(List<Meditation> meditations)
+    {
+        // Очищаем, так как при каждом добавлении рекоммендаций, старых не должно оставаться.
+        RecommendedMeditations.RemoveWhere(x => !meditations.Contains(x));
+        
+        RecommendedMeditations.UnionWith(meditations); // Гарантируем уникальность.
+    }
+
 #pragma warning disable CS8618, CS9264
     public User() {}
 #pragma warning restore CS8618, CS9264

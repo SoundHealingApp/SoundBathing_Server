@@ -23,9 +23,22 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne<UserCredentials>()
             .WithOne()
             .HasForeignKey<UserCredentials>(x => x.Id);
-    
+
         builder
             .HasMany(x => x.LikedMeditations)
             .WithMany();
+
+        builder
+            .HasMany(x => x.RecommendedMeditations)
+            .WithMany()
+            .UsingEntity<Dictionary<string, object>>("RecommendedMeditations",
+            x => x.HasOne<Meditation>()
+                .WithMany()
+                .HasForeignKey("MeditationId")
+                .OnDelete(DeleteBehavior.Cascade),
+            x => x.HasOne<User>()
+                .WithMany()
+                .HasForeignKey("UserId")
+                .OnDelete(DeleteBehavior.Cascade));
     }
 }

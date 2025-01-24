@@ -16,7 +16,7 @@ internal sealed class GetMeditationInfoByIdCommandHandler(IMediationRepository m
         CancellationToken cancellationToken)
     {
         var meditation = await mediationRepository
-            .GetMeditationByIdAsync(request.meditationId, cancellationToken);
+            .GetByIdAsync(request.meditationId, cancellationToken);
 
         if (meditation == null)
             return new MeditationWithIdDoesNotExists(request.meditationId);

@@ -18,7 +18,7 @@ internal sealed class AddMeditationCommandHandler(
     {
         var meditationDto = request.AddMeditationRequest;
         
-        var isMeditationExists = await mediationRepository.IsMeditationExistsAsync(
+        var isMeditationExists = await mediationRepository.IsExistsAsync(
             meditationDto.Title, cancellationToken);
         
         if (isMeditationExists)

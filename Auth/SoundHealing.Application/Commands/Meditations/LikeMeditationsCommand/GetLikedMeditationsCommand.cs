@@ -6,7 +6,7 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Application.Commands.Meditations.LikeMeditationsCommand;
 
-public record GetLikedMeditationsCommand(Guid userId) : IRequest<Result<List<Meditation>>>;
+public record GetLikedMeditationsCommand(Guid UserId) : IRequest<Result<List<Meditation>>>;
 
 public class GetLikedMeditationsCommandHandler(IUserRepository userRepository)
     : IRequestHandler<GetLikedMeditationsCommand, Result<List<Meditation>>>
@@ -14,6 +14,11 @@ public class GetLikedMeditationsCommandHandler(IUserRepository userRepository)
     public async Task<Result<List<Meditation>>> Handle(
         GetLikedMeditationsCommand request, CancellationToken cancellationToken)
     {
-        return await userRepository.GetLikedMeditationsAsync(request.userId, cancellationToken);
+        var user = await userRepository.GetByIdAsync(request.UserId, cancellationToken);
+        
+        if (user == null)
+            return new UserWithIdNotFoundError(request.UserId.ToString());
+
+        return user.LikedMeditations.ToList();
     }
 }

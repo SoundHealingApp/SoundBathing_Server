@@ -64,6 +64,24 @@ public class S3Repository(IAmazonS3 s3Client, IOptions<S3Settings> s3Settings) :
         }
     }
 
+    public async Task<DeleteObjectResponse?> DeleteFileAsync(string key)
+    {
+        try
+        {
+            var deleteRequest = new DeleteObjectRequest
+            {
+                BucketName = s3Settings.Value.MeditationsBucketName,
+                Key = key
+            };
+
+            return await s3Client.DeleteObjectAsync(deleteRequest);
+        }
+        catch (AmazonS3Exception ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
+    }
+
     private async Task<bool> AddFileAsync(IFormFile file, string key)
     {
         try

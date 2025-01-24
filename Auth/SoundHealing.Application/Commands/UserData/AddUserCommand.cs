@@ -22,6 +22,8 @@ internal sealed class AddUserCommandHandler(IUserRepository userRepository)
         user = new User(request.UserId, request.Name, request.Surname, request.BirthDate);
 
         await userRepository.AddAsync(user, cancellationToken);
+        
+        await userRepository.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }

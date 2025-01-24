@@ -12,4 +12,6 @@ public interface IS3Repository
     public Task<GetObjectResponse?> GetMeditationImageAsync(Guid meditationId);
     
     public Task<GetObjectResponse?> GetMeditationAudioAsync(Guid meditationId);
+
+    public Task<DeleteObjectResponse?> DeleteFileAsync(string key);
 }

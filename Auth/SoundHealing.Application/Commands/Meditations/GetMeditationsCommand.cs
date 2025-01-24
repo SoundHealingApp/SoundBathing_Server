@@ -17,7 +17,7 @@ public class GetMeditationsCommandHandler(IMediationRepository mediationReposito
         CancellationToken cancellationToken)
     {
         var meditations =
-            await mediationRepository.GetMeditationsByTypeAsync(request.MeditationType, cancellationToken);
+            await mediationRepository.GetByTypeAsync(request.MeditationType, cancellationToken);
 
         if (meditations == null || meditations.Count == 0)
             return new MeditationsDoesNotExists();
