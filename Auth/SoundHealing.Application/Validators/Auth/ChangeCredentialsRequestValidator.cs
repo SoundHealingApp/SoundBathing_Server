@@ -1,7 +1,7 @@
 using FluentValidation;
 using SoundHealing.Application.Contracts.Requests.Auth;
 
-namespace SoundHealing.Application.Validators;
+namespace SoundHealing.Application.Validators.Auth;
 
 public class ChangeCredentialsRequestValidator : AbstractValidator<ChangeCredentialsRequest>
 {

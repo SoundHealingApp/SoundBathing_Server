@@ -3,7 +3,7 @@ using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.Meditations;
-using SoundHealing.Application.Commands.Meditations.MeditationsFilesCommands;
+using SoundHealing.Application.Commands.Meditations.FilesCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Core.Enums;
@@ -56,7 +56,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Получить информацию о медитации по ID
     /// </summary>
-    [HttpGet("{meditationId}")]
+    [HttpGet("{meditationId:guid}")]
     public async Task<IActionResult> GetInfoByIdAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -67,7 +67,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
         return result switch
         {
             { IsSuccess: true } => Ok(result.Data),
-            { ErrorResponse: MeditationWithIdDoesNotExists err } => Problem(
+            { ErrorResponse: MeditationWithIdDoesNotExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.NotFound),
             _ => throw new UnexpectedErrorResponseException()
         };
@@ -76,7 +76,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Удалить медитацию по Id.
     /// </summary>
-    [HttpDelete("{meditationId}")]
+    [HttpDelete("{meditationId:guid}")]
     public async Task<IActionResult> DeleteByIdAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -87,7 +87,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
         return result switch
         {
             { IsSuccess: true } => Ok(result.Data),
-            { ErrorResponse: MeditationWithIdDoesNotExists err } => Problem(
+            { ErrorResponse: MeditationWithIdDoesNotExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.NotFound),
             _ => throw new UnexpectedErrorResponseException()
         };
@@ -96,7 +96,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Скачать изображение медитации
     /// </summary>
-    [HttpGet("{meditationId}/image")]
+    [HttpGet("{meditationId:guid}/image")]
     public async Task<IResult> DownloadImageAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -110,7 +110,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Скачать аудио медитации
     /// </summary>
-    [HttpGet("{meditationId}/audio")]
+    [HttpGet("{meditationId:guid}/audio")]
     public async Task<IResult> DownloadAudioAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)

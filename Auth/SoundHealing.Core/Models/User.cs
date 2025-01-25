@@ -21,6 +21,8 @@ public class User
     public HashSet<Meditation> LikedMeditations { get; } = [];
     
     public HashSet<Meditation> RecommendedMeditations { get; } = [];
+    
+    public List<MeditationFeedback> MeditationFeedbacks { get; } = [];
 
     public void SetLikeToMeditation(Meditation meditation)
     {

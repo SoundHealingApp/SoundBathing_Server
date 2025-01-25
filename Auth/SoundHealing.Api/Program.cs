@@ -4,8 +4,11 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SoundHealing.Application.Contracts.Requests.Auth;
+using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Interfaces;
 using SoundHealing.Application.Validators;
+using SoundHealing.Application.Validators.Auth;
+using SoundHealing.Application.Validators.Meditation;
 using SoundHealing.Core.Interfaces;
 using SoundHealing.Extensions;
 using SoundHealing.Infrastructure;
@@ -32,12 +35,14 @@ builder.Services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMediationRepository, MeditationRepository>();
 builder.Services.AddScoped<IS3Repository, S3Repository>();
+builder.Services.AddScoped<IMeditationFeedbackRepository, MeditationFeedbackRepository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 builder.Services.AddScoped<IValidator<ChangeCredentialsRequest>, ChangeCredentialsRequestValidator>();
+builder.Services.AddScoped<IValidator<AddMeditationFeedbackRequest>, AddMeditationFeedbackRequestValidator>();
 
 builder.Services.Configure<S3Settings>(builder.Configuration.GetSection(nameof(S3Settings)));
 builder.Services.AddSingleton<IAmazonS3>(sp =>

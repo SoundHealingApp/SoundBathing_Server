@@ -19,7 +19,7 @@ internal sealed class GetMeditationInfoByIdCommandHandler(IMediationRepository m
             .GetByIdAsync(request.meditationId, cancellationToken);
 
         if (meditation == null)
-            return new MeditationWithIdDoesNotExists(request.meditationId);
+            return new MeditationWithIdDoesNotExistsError(request.meditationId);
 
         return meditation;
     }

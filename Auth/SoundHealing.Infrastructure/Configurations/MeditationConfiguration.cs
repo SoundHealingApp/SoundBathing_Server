@@ -25,5 +25,11 @@ public class MeditationConfiguration : IEntityTypeConfiguration<Meditation>
         builder.Property(x => x.AudioLink);
 
         builder.Property(x => x.Frequency);
+
+        builder
+            .HasMany(x => x.Feedbacks)
+            .WithOne()
+            .HasForeignKey(x => x.MeditationId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

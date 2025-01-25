@@ -4,7 +4,7 @@ using SoundHealing.Application.Errors.UsersErrors;
 using SoundHealing.Core.Interfaces;
 using SoundHealing.Core.Models;
 
-namespace SoundHealing.Application.Commands.Meditations.RecommendMeditationsCommands;
+namespace SoundHealing.Application.Commands.UserMeditations.RecommendMeditationsCommands;
 
 public record GetRecommendedMeditationsCommand(Guid UserId) : IRequest<Result<List<Meditation>>>;
 

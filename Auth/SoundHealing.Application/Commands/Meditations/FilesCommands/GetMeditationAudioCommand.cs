@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using SoundHealing.Core.Interfaces;
 
-namespace SoundHealing.Application.Commands.Meditations.MeditationsFilesCommands;
+namespace SoundHealing.Application.Commands.Meditations.FilesCommands;
 
 public record GetMeditationAudioCommand(Guid meditationId) : IRequest<IResult>;
 

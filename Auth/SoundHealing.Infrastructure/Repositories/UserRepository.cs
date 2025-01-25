@@ -16,6 +16,7 @@ public class UserRepository(UserDbContext userDbContext) : IUserRepository
     public async Task<User?> GetByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         var user = await userDbContext.Users
+            .Include(x => x.MeditationFeedbacks)
             .Include(x => x.LikedMeditations)
             .Include(x => x.RecommendedMeditations)
             .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);

@@ -4,7 +4,7 @@ using SoundHealing.Application.Errors.UsersErrors;
 using SoundHealing.Core.Interfaces;
 using SoundHealing.Core.Models;
 
-namespace SoundHealing.Application.Commands.Meditations.LikeMeditationsCommand;
+namespace SoundHealing.Application.Commands.UserMeditations.LikeMeditationsCommand;
 
 public record GetLikedMeditationsCommand(Guid UserId) : IRequest<Result<List<Meditation>>>;
 

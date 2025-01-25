@@ -9,12 +9,15 @@ public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(
     public DbSet<UserCredentials> UsersCredentials { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Meditation> Meditations { get; set; }
-
+    
+    public DbSet<MeditationFeedback> MeditationsFeedback { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new UserCredentialsConfiguration());
         modelBuilder.ApplyConfiguration(new MeditationConfiguration());
+        modelBuilder.ApplyConfiguration(new MeditationFeedbackConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

@@ -30,7 +30,7 @@ public class Meditation
     
     public string? TherapeuticPurpose { get; }
 
-    public double? Rating { get; } // от 1 до 5
+    public double? Rating { get; private set; } // от 1 до 5
     
     public string ImageLink { get; private set; }
     
@@ -38,17 +38,15 @@ public class Meditation
     
     public double? Frequency { get; }
     
-    private int SumOfUserRatings { get; set; }
-    
-    private int TotalUserRatingsCount { get; set; }
+    public List<MeditationFeedback> Feedbacks { get; set; } = [];
 
-    public void SetRatingEstimation(int estimation)
+    public void SetRating()
     {
-        SumOfUserRatings += estimation;
-        TotalUserRatingsCount += 1;
+        var totalUserRatingsCount = Feedbacks.Count;
+        var sumOfUserRatings = Feedbacks.Sum(x => x.Estimate);
+        
+        Rating = Math.Round((double)sumOfUserRatings / totalUserRatingsCount, 2);
     }
-
-    public double GetRating() => (double)SumOfUserRatings / TotalUserRatingsCount;
     
     public void SetS3Keys(string imageKey, string audioKey)
     {

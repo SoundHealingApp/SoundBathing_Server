@@ -9,7 +9,7 @@ using SoundHealing.Application.Contracts.Requests.Auth;
 using SoundHealing.Application.Errors.AuthErrors;
 using SoundHealing.Application.Errors.UsersErrors;
 
-namespace SoundHealing.Controllers.Users;
+namespace SoundHealing.Controllers.Users.Auth;
 
 
 [ApiController]
@@ -67,7 +67,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         };
     }
 
-    [HttpPost("{userId}/change-credentials")]
+    [HttpPost("{userId:guid}/change-credentials")]
     public async Task<IActionResult> ChangeCredentials(
         [FromRoute] Guid userId,
         [FromBody] ChangeCredentialsRequest request,
