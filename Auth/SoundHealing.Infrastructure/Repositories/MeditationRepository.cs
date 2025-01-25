@@ -37,6 +37,7 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
     {
         var meditations = await userDbContext.Meditations
             .AsNoTracking()
+            .Include(x => x.Feedbacks)
             .Where(x => x.MeditationType == meditationType)
             .ToListAsync(cancellationToken: cancellationToken);
 
