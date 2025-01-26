@@ -30,12 +30,16 @@ public class LiveStreamController(IMediator mediator) : ControllerBase
             return BadRequest("Invalid date format. Use 'yyyy-MM-dd HH:mm'.");
         }
         
+        // Конвертируем время в UTC и учитываем часовой пояс Лондона
+        var londonTimeZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+        var londonStartDateTime = TimeZoneInfo.ConvertTimeToUtc(parsedStartDateTime, londonTimeZone);
+        
         var result = await mediator.Send(
             new AddLiveStreamCommand(
                 request.Title,
                 request.Description,
                 request.TherapeuticPurpose,
-                DateTime.SpecifyKind(parsedStartDateTime, DateTimeKind.Utc),
+                londonStartDateTime,
                 request.YouTubeUrl), cancellationToken);
         
         return result switch
@@ -48,10 +52,10 @@ public class LiveStreamController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Получить ближайшую предстоящую трансляцию (или null) - для юзера
     /// </summary>
-    [HttpGet("upcoming")]
-    public async Task<IActionResult> GetUpcoming(CancellationToken cancellationToken)
+    [HttpGet("nearest")]
+    public async Task<IActionResult> GetNearest(CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetUpcomingStreamsCommand(), cancellationToken);
+        var result = await mediator.Send(new GetNearestStreamCommand(), cancellationToken);
         
         return result switch
         {
@@ -61,13 +65,26 @@ public class LiveStreamController(IMediator mediator) : ControllerBase
     }
     
     /// <summary>
-    /// Получить все существующие трансляции (для админа).
+    /// Получить предстоящие трансляции (для админа).
     /// </summary>
-    [HttpGet]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    [HttpGet("upcoming")]
+    public async Task<IActionResult> GetUpcoming(CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(new GetAllStreamsCommand(), cancellationToken);
-        
+        var result = await mediator.Send(new GetUpcomingStreamsCommand(), cancellationToken);
+        return result switch
+        {
+            { IsSuccess: true } => Ok(result.Data),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
+    /// <summary>
+    /// Получить прошедшие трансляции (для админа).
+    /// </summary>
+    [HttpGet("past")]
+    public async Task<IActionResult> GetPast(CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetPastStreamsCommand(), cancellationToken);
         return result switch
         {
             { IsSuccess: true } => Ok(result.Data),
