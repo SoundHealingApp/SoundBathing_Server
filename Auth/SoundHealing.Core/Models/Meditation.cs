@@ -32,9 +32,9 @@ public class Meditation
 
     public double? Rating { get; private set; } // от 1 до 5
     
-    public string ImageLink { get; private set; }
+    public string ImageLink { get; private set; } = string.Empty;
     
-    public string AudioLink { get; private set; }
+    public string AudioLink { get; private set; } = string.Empty;
     
     public double? Frequency { get; }
     
