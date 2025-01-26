@@ -5,24 +5,24 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Infrastructure.Repositories;
 
-public class MeditationRepository(UserDbContext userDbContext) : IMediationRepository
+public class MeditationRepository(AppDbContext appDbContext) : IMediationRepository
 {
     public async Task AddAsync(Meditation meditation, CancellationToken cancellationToken)
     {
-        await userDbContext.Meditations.AddAsync(meditation, cancellationToken);
-        await userDbContext.SaveChangesAsync(cancellationToken);
+        await appDbContext.Meditations.AddAsync(meditation, cancellationToken);
+        await appDbContext.SaveChangesAsync(cancellationToken);
     }
     
     public async Task DeleteAsync(Meditation meditation, CancellationToken cancellationToken)
     {
-        userDbContext.Meditations.Remove(meditation);
+        appDbContext.Meditations.Remove(meditation);
         
-        await userDbContext.SaveChangesAsync(cancellationToken);
+        await appDbContext.SaveChangesAsync(cancellationToken);
     }
 
     public Task<bool> IsExistsAsync(string title, CancellationToken cancellationToken)
     {
-        var meditation = userDbContext.Meditations
+        var meditation = appDbContext.Meditations
             .AsNoTracking()
             .FirstOrDefault(x => x.Title.ToLower() == title.ToLower());
         
@@ -33,7 +33,7 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
         MeditationType meditationType,
         CancellationToken cancellationToken)
     {
-        var meditations = await userDbContext.Meditations
+        var meditations = await appDbContext.Meditations
             .AsNoTracking()
             .Include(x => x.Feedbacks)
             .Where(x => x.MeditationType == meditationType)
@@ -44,7 +44,7 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
 
     public async Task<Meditation?> GetByIdAsync(Guid meditationId, CancellationToken cancellationToken)
     {
-        var meditation = await userDbContext.Meditations
+        var meditation = await appDbContext.Meditations
             // .AsNoTracking()
             .Include(x => x.Feedbacks)
             .Where(x => x.Id == meditationId)
@@ -57,7 +57,7 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
         List<Guid> meditationsIds,
         CancellationToken cancellationToken)
     {
-        var meditations = await userDbContext.Meditations
+        var meditations = await appDbContext.Meditations
             // .AsNoTracking()
             .Where(x => meditationsIds.Contains(x.Id))
             .ToListAsync(cancellationToken);
@@ -66,5 +66,5 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
     }
 
     public Task SaveChangesAsync(CancellationToken cancellationToken) =>
-        userDbContext.SaveChangesAsync(cancellationToken);
+        appDbContext.SaveChangesAsync(cancellationToken);
 }

@@ -11,7 +11,7 @@ using SoundHealing.Infrastructure;
 
 namespace Auth.Infrastructure.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250126115422_addQuotes")]
     partial class addQuotes
     {

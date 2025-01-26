@@ -4,19 +4,19 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Infrastructure.Repositories;
 
-public class UserCredentialsRepository(UserDbContext userDbContext) : IUserCredentialsRepository
+public class UserCredentialsRepository(AppDbContext appDbContext) : IUserCredentialsRepository
 {
     public async Task<Guid> AddAsync(UserCredentials userCredentials)
     {
-        await userDbContext.UsersCredentials.AddAsync(userCredentials);
-        await userDbContext.SaveChangesAsync();
+        await appDbContext.UsersCredentials.AddAsync(userCredentials);
+        await appDbContext.SaveChangesAsync();
         
         return userCredentials.Id;
     }
 
     public async Task<UserCredentials?> GetByEmailAsync(string email)
     {
-        var userCredentials = await userDbContext.UsersCredentials
+        var userCredentials = await appDbContext.UsersCredentials
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Email == email);
 
@@ -25,12 +25,12 @@ public class UserCredentialsRepository(UserDbContext userDbContext) : IUserCrede
 
     public async Task<UserCredentials?> GetByUserIdAsync(Guid userId)
     {
-        var userCredentials = await userDbContext.UsersCredentials
+        var userCredentials = await appDbContext.UsersCredentials
             .FirstOrDefaultAsync(x => x.Id == userId);
         
         return userCredentials;
     }
 
     public Task SaveChangesAsync(CancellationToken cancellationToken) => 
-        userDbContext.SaveChangesAsync(cancellationToken);
+        appDbContext.SaveChangesAsync(cancellationToken);
 }

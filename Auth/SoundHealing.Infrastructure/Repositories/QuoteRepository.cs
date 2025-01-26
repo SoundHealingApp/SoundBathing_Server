@@ -4,7 +4,7 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Infrastructure.Repositories;
 
-public class QuoteRepository(UserDbContext dbContext) : IQuoteRepository
+public class QuoteRepository(AppDbContext dbContext) : IQuoteRepository
 {
     public async Task AddAsync(Quote quote, CancellationToken cancellationToken)
     {

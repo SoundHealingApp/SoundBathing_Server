@@ -4,7 +4,7 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Infrastructure.Repositories;
 
-public class LiveStreamRepository(UserDbContext dbContext) : ILiveStreamRepository
+public class LiveStreamRepository(AppDbContext dbContext) : ILiveStreamRepository
 {
     public async Task AddAsync(LiveStream liveStream, CancellationToken cancellationToken) =>
         await dbContext.LiveStreams.AddAsync(liveStream, cancellationToken);

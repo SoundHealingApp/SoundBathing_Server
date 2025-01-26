@@ -11,7 +11,7 @@ using SoundHealing.Infrastructure;
 
 namespace Auth.Infrastructure.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250124152336_changedBirthDateType")]
     partial class changedBirthDateType
     {

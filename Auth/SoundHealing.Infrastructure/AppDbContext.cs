@@ -4,7 +4,7 @@ using SoundHealing.Infrastructure.Configurations;
 
 namespace SoundHealing.Infrastructure;
 
-public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<UserCredentials> UsersCredentials { get; set; }
     public DbSet<User> Users { get; set; }
