@@ -6,7 +6,6 @@ using Microsoft.Extensions.Options;
 using SoundHealing.Application.Contracts.Requests.Auth;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Interfaces;
-using SoundHealing.Application.Validators;
 using SoundHealing.Application.Validators.Auth;
 using SoundHealing.Application.Validators.Meditation;
 using SoundHealing.Core.Interfaces;
@@ -36,6 +35,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMediationRepository, MeditationRepository>();
 builder.Services.AddScoped<IS3Repository, S3Repository>();
 builder.Services.AddScoped<IMeditationFeedbackRepository, MeditationFeedbackRepository>();
+builder.Services.AddScoped<ILiveStreamRepository, LiveStreamRepository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

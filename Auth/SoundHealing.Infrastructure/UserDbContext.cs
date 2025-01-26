@@ -9,8 +9,9 @@ public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(
     public DbSet<UserCredentials> UsersCredentials { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Meditation> Meditations { get; set; }
-    
     public DbSet<MeditationFeedback> MeditationsFeedback { get; set; }
+    
+    public DbSet<LiveStream> LiveStreams { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,6 +19,7 @@ public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(
         modelBuilder.ApplyConfiguration(new UserCredentialsConfiguration());
         modelBuilder.ApplyConfiguration(new MeditationConfiguration());
         modelBuilder.ApplyConfiguration(new MeditationFeedbackConfiguration());
+        modelBuilder.ApplyConfiguration(new LiveStreamConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }
