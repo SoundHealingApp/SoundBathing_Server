@@ -36,6 +36,7 @@ builder.Services.AddScoped<IMediationRepository, MeditationRepository>();
 builder.Services.AddScoped<IS3Repository, S3Repository>();
 builder.Services.AddScoped<IMeditationFeedbackRepository, MeditationFeedbackRepository>();
 builder.Services.AddScoped<ILiveStreamRepository, LiveStreamRepository>();
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
