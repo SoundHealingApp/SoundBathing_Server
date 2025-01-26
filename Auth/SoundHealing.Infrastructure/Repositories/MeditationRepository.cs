@@ -9,8 +9,6 @@ public class MeditationRepository(UserDbContext userDbContext) : IMediationRepos
 {
     public async Task AddAsync(Meditation meditation, CancellationToken cancellationToken)
     {
-        // TODO: добавлять медитации в s3
-        
         await userDbContext.Meditations.AddAsync(meditation, cancellationToken);
         await userDbContext.SaveChangesAsync(cancellationToken);
     }

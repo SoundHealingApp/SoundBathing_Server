@@ -41,7 +41,8 @@ internal sealed class AddMeditationCommandHandler(
         if (audioKey == null)
             return new S3AudioUploadError(meditation.Id);
         
-        meditation.SetS3Keys(imageKey, audioKey);
+        meditation.SetImageKey(imageKey);
+        meditation.SetAudioKey(audioKey);
         
         // Если при сохранении в бд что-то пойдет не так, то в s3 ключи уже все равно будут 
         await mediationRepository.AddAsync(meditation, cancellationToken);

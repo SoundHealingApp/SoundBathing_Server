@@ -6,6 +6,7 @@ using SoundHealing.Application.Commands.Meditations;
 using SoundHealing.Application.Commands.Meditations.FilesCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
+using SoundHealing.Application.Errors.S3Errors;
 using SoundHealing.Core.Enums;
 
 namespace SoundHealing.Controllers.Meditations;
@@ -30,6 +31,43 @@ public class MeditationController(IMediator mediator) : ControllerBase
             { IsSuccess: true } => Ok(),
             { ErrorResponse: MeditationAlreadyExistsError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.Conflict),
+            { ErrorResponse: S3ImageUploadError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.InternalServerError),
+            { ErrorResponse: S3AudioUploadError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.InternalServerError),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
+    /// <summary>
+    /// Изменить данные медитации.
+    /// </summary>
+    [HttpPatch("{meditationId:guid}")]
+    public async Task<IActionResult> ChangeDataAsync(
+        [FromRoute] Guid meditationId,
+        [FromForm] EditMeditationRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new EditMeditationCommand(
+                meditationId,
+                request.Title,
+                request.Description,
+                request.MeditationType,
+                request.TherapeuticPurpose,
+                request.Image,
+                request.Audio,
+                request.Frequency), cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: MeditationWithIdDoesNotExistsError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.NotFound),
+            { ErrorResponse: S3ImageUploadError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.InternalServerError),
+            { ErrorResponse: S3AudioUploadError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.InternalServerError),
             _ => throw new UnexpectedErrorResponseException()
         };
     }
