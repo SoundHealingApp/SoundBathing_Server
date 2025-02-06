@@ -16,7 +16,7 @@ public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
     public string GenerateToken(UserCredentials userCredentials)
     {
         Claim[] claims = [
-            new ("userId", userCredentials.Id.ToString()),
+            new (ClaimTypes.NameIdentifier, userCredentials.Id.ToString()),
         ];
         
         var signingCredentials = new SigningCredentials(

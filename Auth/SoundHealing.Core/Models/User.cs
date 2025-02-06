@@ -8,6 +8,9 @@ public class User
         Name = name;
         Surname = surname;
         BirthDate = birthDate;
+
+        CreateUserPermissions();
+        // CreateAdminPermissions();
     }
     
     public Guid Id { get; init; }
@@ -23,6 +26,8 @@ public class User
     public HashSet<Meditation> RecommendedMeditations { get; } = [];
     
     public List<MeditationFeedback> MeditationFeedbacks { get; } = [];
+    
+    public List<Permission> Permissions { get; private set;  } = [];
 
     public void SetLikeToMeditation(Meditation meditation)
     {
@@ -48,7 +53,16 @@ public class User
     
     public void ChangeBirthDate(DateOnly birthDate) => BirthDate = birthDate;
     
-
+    private void CreateUserPermissions()
+    {
+        Permissions = PermissionsConstants.UserPermissions.Select(permission => new Permission(permission)).ToList();
+    }
+    
+    // public void CreateAdminPermissions()
+    // {
+    //     Permissions.AddRange(PermissionsConstants.AdminPermissions.Select(permission => new Permission(permission)));
+    // }
+    
 #pragma warning disable CS8618, CS9264
     public User() {}
 #pragma warning restore CS8618, CS9264

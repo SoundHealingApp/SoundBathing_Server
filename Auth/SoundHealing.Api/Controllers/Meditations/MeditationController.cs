@@ -1,12 +1,14 @@
 using System.Net;
 using CQRS;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.Meditations;
 using SoundHealing.Application.Commands.Meditations.FilesCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.S3Errors;
+using SoundHealing.Core;
 using SoundHealing.Core.Enums;
 
 namespace SoundHealing.Controllers.Meditations;
@@ -19,6 +21,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Добавить новую медитацию
     /// </summary>
     [HttpPost]
+    [Authorize(PermissionsConstants.MeditationsAdministration)]
     public async Task<IActionResult> AddAsync(
         [FromForm] AddMeditationRequest request,
         CancellationToken cancellationToken)
@@ -43,6 +46,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Изменить данные медитации.
     /// </summary>
     [HttpPatch("{meditationId:guid}")]
+    [Authorize(PermissionsConstants.MeditationsAdministration)]
     public async Task<IActionResult> ChangeDataAsync(
         [FromRoute] Guid meditationId,
         [FromForm] EditMeditationRequest request,
@@ -76,6 +80,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Получить список медитаций по типу
     /// </summary>
     [HttpGet("type/{meditationType}")]
+    [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IActionResult> GetByTypeAsync(
         [FromRoute] MeditationType meditationType,
         CancellationToken cancellationToken)
@@ -95,6 +100,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Получить информацию о медитации по ID
     /// </summary>
     [HttpGet("{meditationId:guid}")]
+    [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IActionResult> GetInfoByIdAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -115,6 +121,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Удалить медитацию по Id.
     /// </summary>
     [HttpDelete("{meditationId:guid}")]
+    [Authorize(PermissionsConstants.MeditationsAdministration)]
     public async Task<IActionResult> DeleteByIdAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -135,6 +142,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Скачать изображение медитации
     /// </summary>
     [HttpGet("{meditationId:guid}/image")]
+    [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IResult> DownloadImageAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -149,6 +157,7 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Скачать аудио медитации
     /// </summary>
     [HttpGet("{meditationId:guid}/audio")]
+    [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IResult> DownloadAudioAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)

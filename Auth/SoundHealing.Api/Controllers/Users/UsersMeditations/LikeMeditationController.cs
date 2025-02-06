@@ -1,10 +1,12 @@
 using System.Net;
 using CQRS;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.UserMeditations.LikeMeditationsCommand;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Core;
 
 namespace SoundHealing.Controllers.Users.UsersMeditations;
 
@@ -16,6 +18,7 @@ public class LikeMeditationController(IMediator mediator) : ControllerBase
     /// Добавить медитацию в понравившуюся.
     /// </summary>
     [HttpPost("{meditationId:guid}")]
+    [Authorize(PermissionsConstants.ManageMeditationsLikes)]
     public async Task<IActionResult> LikeMeditation(
         [FromRoute] Guid userId,
         [FromRoute] Guid meditationId,
@@ -39,6 +42,7 @@ public class LikeMeditationController(IMediator mediator) : ControllerBase
     /// Удалить медитацию из понравившихся
     /// </summary>
     [HttpDelete("{meditationId:guid}")]
+    [Authorize(PermissionsConstants.ManageMeditationsLikes)]
     public async Task<IActionResult> DeleteLikeFromMeditation(
         [FromRoute] Guid userId,
         [FromRoute] Guid meditationId,
@@ -62,6 +66,7 @@ public class LikeMeditationController(IMediator mediator) : ControllerBase
     /// Получить понравившиеся медитации.
     /// </summary>
     [HttpGet]
+    [Authorize(PermissionsConstants.ManageMeditationsLikes)]
     public async Task<IActionResult> GetLikedMeditations(
         [FromRoute] Guid userId,
         CancellationToken cancellationToken)

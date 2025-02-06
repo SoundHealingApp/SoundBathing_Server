@@ -31,6 +31,18 @@ public class UserRepository(AppDbContext appDbContext) : IUserRepository
         
         return user;
     }
-    
+
+    public async Task<ICollection<Permission>> GetPermissionsByUserIdAsync(string userId)
+    {
+        var user = await appDbContext.Users
+            .Include(user => user.Permissions)
+            .FirstOrDefaultAsync(x => x.Id.ToString() == userId);
+        
+        if (user == null)
+            throw new InvalidOperationException($"User with id {userId} not found");
+        
+        return user.Permissions;
+    }
+
     public Task SaveChangesAsync(CancellationToken cancellationToken) => appDbContext.SaveChangesAsync(cancellationToken);
 }

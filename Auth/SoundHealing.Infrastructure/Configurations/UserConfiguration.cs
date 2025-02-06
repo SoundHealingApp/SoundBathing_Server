@@ -19,6 +19,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(100);
         
         builder.Property(x => x.BirthDate).IsRequired();
+
+        builder
+            .HasMany(x => x.Permissions)
+            .WithMany();
         
         builder.HasOne<UserCredentials>()
             .WithOne()

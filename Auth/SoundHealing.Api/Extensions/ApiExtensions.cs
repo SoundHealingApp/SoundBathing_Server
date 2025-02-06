@@ -1,6 +1,8 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using SoundHealing.Core;
 using SoundHealing.Infrastructure.Options;
 
 namespace SoundHealing.Extensions;
@@ -26,15 +28,14 @@ public static class ApiExtensions
                         Encoding.UTF8.GetBytes(jwtOptions!.SecretKey))
                 };
             });
-
-        // services.AddAuthorization(options =>
-        // {
-        //     options.AddPolicy("AdminPolicy", policy =>
-        //     {
-        //         // policy.Requirements
-        //         // policy.RequireUserName("admin");
-        //         // policy.RequireClaim("Admin", "true");
-        //     });
-        // });
+        
+        services.AddSingleton<IAuthorizationHandler, PermissionRequirementsHandler>();
+        var authorizationBuilder = services.AddAuthorizationBuilder();
+        
+        foreach (var policy in PermissionsConstants.AdminPermissions.Concat(PermissionsConstants.UserPermissions))
+        {
+            authorizationBuilder.AddPolicy(policy, builder =>
+                builder.Requirements.Add(new PermissionRequirements(policy)));
+        }
     }
 }

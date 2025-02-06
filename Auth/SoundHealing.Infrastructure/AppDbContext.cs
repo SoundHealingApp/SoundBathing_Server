@@ -13,6 +13,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<LiveStream> LiveStreams { get; set; }
     public DbSet<Quote> Quotes { get; set; }
     
+    public DbSet<Permission> Permission { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -21,7 +23,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.ApplyConfiguration(new MeditationFeedbackConfiguration());
         modelBuilder.ApplyConfiguration(new LiveStreamConfiguration());
         modelBuilder.ApplyConfiguration(new QuoteConfiguration());
-
+        modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+        
         base.OnModelCreating(modelBuilder);
     }
 }

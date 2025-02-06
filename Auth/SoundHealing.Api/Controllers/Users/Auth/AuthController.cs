@@ -2,12 +2,14 @@ using System.Net;
 using CQRS;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SoundHealing.Application.Commands.Auth;
 using SoundHealing.Application.Contracts.Requests.Auth;
 using SoundHealing.Application.Errors.AuthErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Core;
 
 namespace SoundHealing.Controllers.Users.Auth;
 
@@ -68,6 +70,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost("{userId:guid}/change-credentials")]
+    [Authorize(PermissionsConstants.EditUserInfo)]
     public async Task<IActionResult> ChangeCredentials(
         [FromRoute] Guid userId,
         [FromBody] ChangeCredentialsRequest request,

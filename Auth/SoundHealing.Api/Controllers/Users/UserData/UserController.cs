@@ -1,11 +1,13 @@
 using System.Net;
 using CQRS;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.UserData;
 using SoundHealing.Application.Contracts.Requests.User;
 using SoundHealing.Application.Errors.AuthErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Core;
 
 namespace SoundHealing.Controllers.Users.UserData;
 
@@ -14,7 +16,7 @@ namespace SoundHealing.Controllers.Users.UserData;
 public class UserController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Добавить данные о пользователе.
+    /// Добавить данные о пользователе. (нет пермиссий)
     /// </summary>
     [HttpPost]
     public async Task<IActionResult> AddUserData(
@@ -38,6 +40,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Получить информацию о пользователе.
     /// </summary>
     [HttpGet("{userId}")]
+    [Authorize(PermissionsConstants.GetUserInfo)]
     public async Task<IActionResult> GetUserData(
         [FromRoute] string userId,
         CancellationToken cancellationToken)
@@ -60,6 +63,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Изменить данные пользователя
     /// </summary>
     [HttpPatch("{userId:guid}")]
+    [Authorize(PermissionsConstants.EditUserInfo)]
     public async Task<IActionResult> ChangeUserData(
         [FromRoute] Guid userId,
         [FromBody] ChangeUserDataRequest request,

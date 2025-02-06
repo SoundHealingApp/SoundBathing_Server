@@ -1,10 +1,12 @@
 using System.Net;
 using CQRS;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.UserMeditations.RecommendMeditationsCommands;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Core;
 
 namespace SoundHealing.Controllers.Users.UsersMeditations;
 
@@ -16,6 +18,7 @@ public class RecommendMeditationsController(IMediator mediator) : ControllerBase
     /// Добавить медитации в рекоммендованные.
     /// </summary>
     [HttpPost]
+    [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
     public async Task<IActionResult> RecommendMeditation(
         [FromRoute] Guid userId,
         [FromQuery] List<Guid> meditationId,
@@ -39,6 +42,7 @@ public class RecommendMeditationsController(IMediator mediator) : ControllerBase
     /// Получить рекомендованные медитации.
     /// </summary>
     [HttpGet]
+    [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
     public async Task<IActionResult> GetRecommendMeditation(
         [FromRoute] Guid userId,
         CancellationToken cancellationToken)

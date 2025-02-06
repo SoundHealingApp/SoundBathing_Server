@@ -2,12 +2,14 @@ using System.Net;
 using CQRS;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SoundHealing.Application.Commands.Meditations.FeedbackCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Core;
 
 namespace SoundHealing.Controllers.Meditations;
 
@@ -19,6 +21,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Добавить отзыв к медитации.
     /// </summary>
     [HttpPost("feedback")]
+    [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> AddFeedback(
         [FromRoute] Guid meditationId,
         [FromBody] AddMeditationFeedbackRequest request,
@@ -60,6 +63,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Получить отзывы медитации.
     /// </summary>
     [HttpGet("feedbacks")]
+    [Authorize(PermissionsConstants.GetFeedbackInfo)]
     public async Task<IActionResult> GetFeedbacks(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -80,6 +84,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Может ли пользователь добавлять отзыв к данной медитации.
     /// </summary>
     [HttpGet("can-add-feedback")]
+    [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> CanUserAddFeedback(
         [FromRoute] Guid meditationId,
         [FromQuery] Guid userId,
