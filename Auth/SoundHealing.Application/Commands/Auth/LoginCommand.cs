@@ -5,15 +5,16 @@ using SoundHealing.Application.Interfaces;
 using SoundHealing.Core.Interfaces;
 
 namespace SoundHealing.Application.Commands.Auth;
+public record LoginResponse(string Token, string UserId);
 
-public record LoginCommand(string Email, string Password) : IRequest<Result<(string Token, string UserId)>>;
+public record LoginCommand(string Email, string Password) : IRequest<Result<LoginResponse>>;
 
 public class LoginCommandHandler(
     IUserCredentialsRepository userCredentialsRepository,
     IPasswordHasher passwordHasher,
-    IJwtProvider jwtProvider) : IRequestHandler<LoginCommand, Result<(string Token, string UserId)>>
+    IJwtProvider jwtProvider) : IRequestHandler<LoginCommand, Result<LoginResponse>>
 {
-    public async Task<Result<(string Token, string UserId)>> Handle(
+    public async Task<Result<LoginResponse>> Handle(
         LoginCommand request,
         CancellationToken cancellationToken)
     {
@@ -29,6 +30,6 @@ public class LoginCommandHandler(
 
         var token = jwtProvider.GenerateToken(userCredentials);
 
-        return (Token: token, UserId: userCredentials.Id.ToString());
+        return new LoginResponse(Token: token, UserId: userCredentials.Id.ToString());
     }
 }

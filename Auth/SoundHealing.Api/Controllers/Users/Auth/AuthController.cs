@@ -70,7 +70,8 @@ public class AuthController(IMediator mediator) : ControllerBase
     }
     
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Login(
+        [FromBody] LoginRequest request, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
             new LoginCommand(request.Email, request.Password),
@@ -78,7 +79,7 @@ public class AuthController(IMediator mediator) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } => Ok(result.Data.ToTuple()),
+            { IsSuccess: true } => Ok(result.Data),
             { ErrorResponse: IncorrectPasswordError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.Unauthorized),
             { ErrorResponse: UserWithEmailNotFoundError err } => Problem(err.Message,
