@@ -18,6 +18,24 @@ namespace SoundHealing.Controllers.Users.Auth;
 [Route("auth")]
 public class AuthController(IMediator mediator) : ControllerBase
 {
+    [HttpGet("user")]
+    public async Task<IActionResult> Get(
+        [FromQuery] string email,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new CheckUserExistenseQuery(email),
+            cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: UserAlreadyExistsError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.UnprocessableEntity),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
     [HttpPost("register")]
     public async Task<IActionResult> Register(
         [FromBody] RegisterRequest request,
