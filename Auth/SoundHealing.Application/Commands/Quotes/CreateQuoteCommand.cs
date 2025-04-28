@@ -5,14 +5,15 @@ using SoundHealing.Core.Models;
 
 namespace SoundHealing.Application.Commands.Quotes;
 
-public record CreateQuoteCommand(string Text, string Author) : IRequest<Result<Unit>>;
+public record CreateQuoteCommand(string Text, string Author) : IRequest<Result<Guid>>;
 
-internal sealed class CreateQuoteCommandHandler(IQuoteRepository quoteRepository) : IRequestHandler<CreateQuoteCommand, Result<Unit>>
+internal sealed class CreateQuoteCommandHandler(IQuoteRepository quoteRepository) : IRequestHandler<CreateQuoteCommand, Result<Guid>>
 {
-    public async Task<Result<Unit>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
     {
-        await quoteRepository.AddAsync(new Quote(request.Text.Trim(), request.Author), cancellationToken);
+        var quote = new Quote(request.Text.Trim(), request.Author);
+        await quoteRepository.AddAsync(quote, cancellationToken);
         
-        return Unit.Value;
+        return quote.Id;
     }
 }

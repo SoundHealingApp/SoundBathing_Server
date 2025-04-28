@@ -12,6 +12,7 @@ public class MeditationFeedbackConfiguration : IEntityTypeConfiguration<Meditati
         
         builder.Property(x => x.UserId).IsRequired();
         builder.Property(x => x.MeditationId).IsRequired();
+        builder.Property(x => x.UserName).IsRequired();
 
         builder.Property(x => x.Comment);
         builder.Property(x => x.Estimate).IsRequired();

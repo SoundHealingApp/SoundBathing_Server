@@ -18,7 +18,7 @@ public class LikeMeditationController(IMediator mediator) : ControllerBase
     /// Добавить медитацию в понравившуюся.
     /// </summary>
     [HttpPost("{meditationId:guid}")]
-    [Authorize(PermissionsConstants.ManageMeditationsLikes)]
+    // [Authorize(PermissionsConstants.ManageMeditationsLikes)]
     public async Task<IActionResult> LikeMeditation(
         [FromRoute] Guid userId,
         [FromRoute] Guid meditationId,
@@ -42,7 +42,7 @@ public class LikeMeditationController(IMediator mediator) : ControllerBase
     /// Удалить медитацию из понравившихся
     /// </summary>
     [HttpDelete("{meditationId:guid}")]
-    [Authorize(PermissionsConstants.ManageMeditationsLikes)]
+    // [Authorize(PermissionsConstants.ManageMeditationsLikes)]
     public async Task<IActionResult> DeleteLikeFromMeditation(
         [FromRoute] Guid userId,
         [FromRoute] Guid meditationId,
@@ -66,7 +66,7 @@ public class LikeMeditationController(IMediator mediator) : ControllerBase
     /// Получить понравившиеся медитации.
     /// </summary>
     [HttpGet]
-    [Authorize(PermissionsConstants.ManageMeditationsLikes)]
+    // [Authorize(PermissionsConstants.ManageMeditationsLikes)]
     public async Task<IActionResult> GetLikedMeditations(
         [FromRoute] Guid userId,
         CancellationToken cancellationToken)

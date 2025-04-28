@@ -4,5 +4,5 @@ public record EditLiveStreamRequest(
     string? Title,
     string? Description,
     string? TherapeuticPurpose,
-    DateTime? StartDateTime,
+    string? StartDateTime,
     string? YouTubeUrl);

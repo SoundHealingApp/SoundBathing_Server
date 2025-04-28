@@ -37,6 +37,7 @@ builder.Services.AddScoped<IS3Repository, S3Repository>();
 builder.Services.AddScoped<IMeditationFeedbackRepository, MeditationFeedbackRepository>();
 builder.Services.AddScoped<ILiveStreamRepository, LiveStreamRepository>();
 builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
@@ -44,6 +45,7 @@ builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 builder.Services.AddScoped<IValidator<ChangeCredentialsRequest>, ChangeCredentialsRequestValidator>();
 builder.Services.AddScoped<IValidator<AddMeditationFeedbackRequest>, AddMeditationFeedbackRequestValidator>();
+builder.Services.AddScoped<IValidator<ChangeMeditationFeedbackRequest>, ChangeFeedbackRequestValidator>();
 
 builder.Services.Configure<S3Settings>(builder.Configuration.GetSection(nameof(S3Settings)));
 builder.Services.AddSingleton<IAmazonS3>(sp =>

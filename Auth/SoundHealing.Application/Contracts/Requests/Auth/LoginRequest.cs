@@ -1,3 +1,3 @@
 namespace SoundHealing.Application.Contracts.Requests.Auth;
 
-public record LoginRequest(string Email, string Password);
+public record LoginRequest(string Email, string HashedPassword);

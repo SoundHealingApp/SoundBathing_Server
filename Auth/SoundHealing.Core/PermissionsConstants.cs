@@ -22,6 +22,8 @@ public static class PermissionsConstants
         ManageMeditationsRecommendations
     ];
     
+    public static IEnumerable<string> AllPermissions => UserPermissions.Concat(AdminPermissions);
+    
     // Admin permissions
     public const string LiveStreamsAdministration = nameof(LiveStreamsAdministration);
     public const string MeditationsAdministration = nameof(MeditationsAdministration);

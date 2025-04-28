@@ -26,16 +26,26 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         
         builder.HasOne<UserCredentials>()
             .WithOne()
-            .HasForeignKey<UserCredentials>(x => x.Id);
+            .HasForeignKey<UserCredentials>(x => x.Id)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder
             .HasMany(x => x.LikedMeditations)
-            .WithMany();
+            .WithMany()
+            .UsingEntity<Dictionary<string, object>>("UserLikedMeditations",
+                x => x.HasOne<Meditation>()
+                    .WithMany()
+                    .HasForeignKey("MeditationId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                x => x.HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade));
 
         builder
             .HasMany(x => x.RecommendedMeditations)
             .WithMany()
-            .UsingEntity<Dictionary<string, object>>("RecommendedMeditations",
+            .UsingEntity<Dictionary<string, object>>("UserRecommendedMeditations",
             x => x.HasOne<Meditation>()
                 .WithMany()
                 .HasForeignKey("MeditationId")

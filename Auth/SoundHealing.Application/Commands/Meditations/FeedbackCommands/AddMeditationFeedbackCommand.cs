@@ -33,7 +33,11 @@ internal sealed class AddMeditationFeedbackCommandHandler(
         
         await feedbackRepository.AddAsync(
             new MeditationFeedback(
-                request.UserId, request.MeditationId, request.Comment, request.Estimate),
+                request.UserId,
+                request.MeditationId,
+                user.Name,
+                request.Comment,
+                request.Estimate),
             cancellationToken);
         
         meditation.SetRating();

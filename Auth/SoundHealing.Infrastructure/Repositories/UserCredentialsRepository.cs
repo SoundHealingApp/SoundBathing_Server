@@ -31,6 +31,13 @@ public class UserCredentialsRepository(AppDbContext appDbContext) : IUserCredent
         return userCredentials;
     }
 
+    public async Task DeleteByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        await appDbContext.UsersCredentials
+            .Where(x => x.Id == userId)
+            .ExecuteDeleteAsync(cancellationToken);
+    }
+
     public Task SaveChangesAsync(CancellationToken cancellationToken) => 
         appDbContext.SaveChangesAsync(cancellationToken);
 }

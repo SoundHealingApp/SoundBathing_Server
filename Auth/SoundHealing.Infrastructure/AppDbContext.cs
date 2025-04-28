@@ -1,4 +1,7 @@
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
+using SoundHealing.Core;
 using SoundHealing.Core.Models;
 using SoundHealing.Infrastructure.Configurations;
 
@@ -25,6 +28,24 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.ApplyConfiguration(new QuoteConfiguration());
         modelBuilder.ApplyConfiguration(new PermissionConfiguration());
         
+        modelBuilder.Entity<Permission>().HasData(
+            PermissionsConstants.AllPermissions
+                .Select(p => new 
+                {
+                    Id = GetDeterministicGuid(p), // Фиксированный GUID для каждой пермиссии
+                    Name = p
+                })
+                .ToArray<object>()
+        );
+        
         base.OnModelCreating(modelBuilder);
+    }
+    
+    /// Генерация детерминированного GUID на основе имени пермиссии
+    private static Guid GetDeterministicGuid(string input)
+    {
+        using var md5 = MD5.Create();
+        var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+        return new Guid(hash);
     }
 }

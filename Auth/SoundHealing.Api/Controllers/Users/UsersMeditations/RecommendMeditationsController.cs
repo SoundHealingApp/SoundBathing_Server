@@ -11,14 +11,14 @@ using SoundHealing.Core;
 namespace SoundHealing.Controllers.Users.UsersMeditations;
 
 [ApiController]
-[Route("users/{userId:guid}/recommended-meditations")]
+[Route("api/users/{userId:guid}/recommended-meditations")]
 public class RecommendMeditationsController(IMediator mediator) : ControllerBase
 {
     /// <summary>
     /// Добавить медитации в рекоммендованные.
     /// </summary>
     [HttpPost]
-    [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
+    // [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
     public async Task<IActionResult> RecommendMeditation(
         [FromRoute] Guid userId,
         [FromQuery] List<Guid> meditationId,
@@ -42,7 +42,7 @@ public class RecommendMeditationsController(IMediator mediator) : ControllerBase
     /// Получить рекомендованные медитации.
     /// </summary>
     [HttpGet]
-    [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
+    // [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
     public async Task<IActionResult> GetRecommendMeditation(
         [FromRoute] Guid userId,
         CancellationToken cancellationToken)

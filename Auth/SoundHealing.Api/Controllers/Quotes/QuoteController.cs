@@ -11,14 +11,14 @@ using SoundHealing.Core;
 namespace SoundHealing.Controllers.Quotes;
 
 [ApiController]
-[Route("quotes")]
+[Route("api/quotes")]
 public class QuoteController(IMediator mediator) : ControllerBase
 {
     /// <summary>
     /// Создать цитату.
     /// </summary>
     [HttpPost]
-    [Authorize(PermissionsConstants.QuotesAdministration)]
+    // [Authorize(PermissionsConstants.QuotesAdministration)]
     public async Task<IActionResult> CreateAsync(
         [FromBody] CreateQuoteRequest request,
         CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ public class QuoteController(IMediator mediator) : ControllerBase
         
         return result switch
         {
-            { IsSuccess: true } => Ok(),
+            { IsSuccess: true } => Ok(result.Data),
             _ => throw new UnexpectedErrorResponseException()
         };
     }
@@ -37,7 +37,7 @@ public class QuoteController(IMediator mediator) : ControllerBase
     /// Получить все цитаты (для админа)
     /// </summary>
     [HttpGet]
-    [Authorize(PermissionsConstants.QuotesAdministration)]
+    // [Authorize(PermissionsConstants.QuotesAdministration)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
@@ -54,7 +54,7 @@ public class QuoteController(IMediator mediator) : ControllerBase
     /// Получить рандомную цитату.
     /// </summary>
     [HttpGet("random")]
-    [Authorize(PermissionsConstants.GetQuotesInfo)]
+    // [Authorize(PermissionsConstants.GetQuotesInfo)]
     public async Task<IActionResult> GetRandomAsync(CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
@@ -72,8 +72,8 @@ public class QuoteController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Обновить цитату.
     /// </summary>
-    [HttpPatch("{quoteId:guid}")]
-    [Authorize(PermissionsConstants.QuotesAdministration)]
+    [HttpPut("{quoteId:guid}")]
+    // [Authorize(PermissionsConstants.QuotesAdministration)]
     public async Task<IActionResult> UpdateAsync(
         [FromRoute] Guid quoteId,
         [FromBody] EditQuoteRequest request,
@@ -96,7 +96,7 @@ public class QuoteController(IMediator mediator) : ControllerBase
     /// Удалить цитату.
     /// </summary>
     [HttpDelete("{quoteId:guid}")]
-    [Authorize(PermissionsConstants.QuotesAdministration)]
+    // [Authorize(PermissionsConstants.QuotesAdministration)]
     public async Task<IActionResult> DeleteAsync(
         [FromRoute] Guid quoteId,
         CancellationToken cancellationToken)

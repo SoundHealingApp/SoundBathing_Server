@@ -21,7 +21,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Добавить отзыв к медитации.
     /// </summary>
     [HttpPost("feedback")]
-    [Authorize(PermissionsConstants.AddFeedback)]
+    // [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> AddFeedback(
         [FromRoute] Guid meditationId,
         [FromBody] AddMeditationFeedbackRequest request,
@@ -59,11 +59,76 @@ public class FeedbackController(IMediator mediator) : ControllerBase
         };
     }
     
+    // TODO: добавить пермиссию отдельную
+    /// <summary>
+    /// Удалить отзыв.
+    /// </summary>
+    [HttpDelete("feedback")]
+    public async Task<IActionResult> DeleteFeedback(
+        [FromRoute] Guid meditationId,
+        [FromQuery] Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new DeleteFeedbackCommand(userId, meditationId), cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: UserWithIdNotFoundError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.NotFound),
+            { ErrorResponse: MeditationWithIdDoesNotExistsError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.NotFound),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
+    // TODO: добавить пермиссию отдельную
+    /// <summary>
+    /// Изменить отзыв
+    /// </summary>
+    [HttpPut("feedback")]
+    public async Task<IActionResult> ChangeFeedback(
+        [FromRoute] Guid meditationId,
+        [FromQuery] Guid userId,
+        [FromBody] ChangeMeditationFeedbackRequest request,
+        [FromServices] IValidator<ChangeMeditationFeedbackRequest> validator,
+        CancellationToken cancellationToken)
+    {
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            var modelStateDictionary = new ModelStateDictionary();
+            
+            foreach (var failure in validationResult.Errors)
+            {
+                modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+            }
+
+            return ValidationProblem(modelStateDictionary);
+        }
+        
+        var result = await mediator.Send(
+            new ChangeFeedbackCommand(meditationId, userId, request.Comment, request.Estimate),
+            cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: UserWithIdNotFoundError err } => Problem(err.Message,
+                statusCode: (int)HttpStatusCode.NotFound),
+            { ErrorResponse: MeditationWithIdDoesNotExistsError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.NotFound),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
     /// <summary>
     /// Получить отзывы медитации.
     /// </summary>
     [HttpGet("feedbacks")]
-    [Authorize(PermissionsConstants.GetFeedbackInfo)]
+    // [Authorize(PermissionsConstants.GetFeedbackInfo)]
     public async Task<IActionResult> GetFeedbacks(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -84,7 +149,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Может ли пользователь добавлять отзыв к данной медитации.
     /// </summary>
     [HttpGet("can-add-feedback")]
-    [Authorize(PermissionsConstants.AddFeedback)]
+    // [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> CanUserAddFeedback(
         [FromRoute] Guid meditationId,
         [FromQuery] Guid userId,

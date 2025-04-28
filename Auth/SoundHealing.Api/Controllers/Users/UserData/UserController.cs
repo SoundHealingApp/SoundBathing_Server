@@ -12,7 +12,7 @@ using SoundHealing.Core;
 namespace SoundHealing.Controllers.Users.UserData;
 
 [ApiController]
-[Route("users")]
+[Route("api/users")]
 public class UserController(IMediator mediator) : ControllerBase
 {
     /// <summary>
@@ -40,7 +40,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Получить информацию о пользователе.
     /// </summary>
     [HttpGet("{userId}")]
-    [Authorize(PermissionsConstants.GetUserInfo)]
+    // [Authorize(PermissionsConstants.GetUserInfo)]
     public async Task<IActionResult> GetUserData(
         [FromRoute] string userId,
         CancellationToken cancellationToken)
@@ -53,8 +53,6 @@ public class UserController(IMediator mediator) : ControllerBase
             { IsSuccess: true } => Ok(result.Data),
             { ErrorResponse: UserWithIdNotFoundError err } => Problem(
                 err.Message, statusCode: (int)HttpStatusCode.NotFound),
-            { ErrorResponse: UserAlreadyExistsError err } => Problem(
-                err.Message, statusCode: (int)HttpStatusCode.Conflict),
             _ => throw new UnexpectedErrorResponseException()
         };
     }
@@ -63,7 +61,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Изменить данные пользователя
     /// </summary>
     [HttpPatch("{userId:guid}")]
-    [Authorize(PermissionsConstants.EditUserInfo)]
+    // [Authorize(PermissionsConstants.EditUserInfo)]
     public async Task<IActionResult> ChangeUserData(
         [FromRoute] Guid userId,
         [FromBody] ChangeUserDataRequest request,
@@ -78,6 +76,46 @@ public class UserController(IMediator mediator) : ControllerBase
             { IsSuccess: true } => Ok(),
             { ErrorResponse: UserWithIdNotFoundError err } => Problem(err.Message,
                 statusCode: (int)HttpStatusCode.NotFound),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+
+    [HttpGet("{userId:guid}/has-permission")]
+    public async Task<IActionResult> CheckUserPermission(
+        [FromRoute] Guid userId,
+        [FromQuery] string permissionName,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new CheckUserPermissionsCommand(userId, permissionName),
+            cancellationToken);
+
+        return result switch
+        {
+            { IsSuccess: true } => Ok(result.Data),
+            { ErrorResponse: UserWithIdNotFoundError err } => Problem(err.Message,
+                statusCode: (int)HttpStatusCode.NotFound),
+            _ => throw new UnexpectedErrorResponseException()
+        };
+    }
+    
+    /// <summary>
+    /// Удалить пользователя.
+    /// </summary>
+    [HttpDelete("{userId}")]
+    // [Authorize(PermissionsConstants.GetUserInfo)]
+    public async Task<IActionResult> DeleteUser(
+        [FromRoute] Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new DeleteUserCommand(userId), cancellationToken);
+        
+        return result switch
+        {
+            { IsSuccess: true } => Ok(),
+            { ErrorResponse: UserWithIdNotFoundError err } => Problem(
+                err.Message, statusCode: (int)HttpStatusCode.NotFound),
             _ => throw new UnexpectedErrorResponseException()
         };
     }

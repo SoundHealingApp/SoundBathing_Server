@@ -14,13 +14,9 @@ internal sealed class GetUpcomingStreamsCommandHandler(ILiveStreamRepository liv
     public async Task<Result<List<LiveStreamDto>>> Handle(GetUpcomingStreamsCommand request, CancellationToken cancellationToken)
     {
         var streams = await liveStreamRepository.GetSortedStreamsAsync(cancellationToken);
-        // Получаем часовой пояс Лондона
-        var londonTimeZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
-        // Получаем текущее время в Лондоне (с учетом текущего времени и летнего/зимнего времени)
-        var currentLondonTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, londonTimeZone);
         
         var streamDtos = streams
-            .Where(x => x.StartDateTime >= currentLondonTime.AddMinutes(-5))
+            .Where(x => x.StartDateTime >= DateTime.UtcNow.AddMinutes(-5))
             .Select(stream => 
                 new LiveStreamDto(
                     stream.Id,

@@ -3,6 +3,7 @@ using MediatR;
 using SoundHealing.Application.Contracts.Dto;
 using SoundHealing.Application.Errors.UsersErrors;
 using SoundHealing.Core.Interfaces;
+using SoundHealing.Core.Models;
 
 namespace SoundHealing.Application.Commands.UserData;
 

@@ -23,7 +23,14 @@ public class UserRepository(AppDbContext appDbContext) : IUserRepository
         
         return user;
     }
-    
+
+    public async Task DeleteByIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+         await appDbContext.Users
+            .Where(x => x.Id == userId)
+            .ExecuteDeleteAsync(cancellationToken);
+    }
+
     public async Task<User?> GetByIdAsyncWithoutIncludes(Guid userId, CancellationToken cancellationToken)
     {
         var user = await appDbContext.Users

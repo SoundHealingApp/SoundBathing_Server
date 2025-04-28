@@ -8,9 +8,6 @@ public class User
         Name = name;
         Surname = surname;
         BirthDate = birthDate;
-
-        CreateUserPermissions();
-        // CreateAdminPermissions();
     }
     
     public Guid Id { get; init; }
@@ -53,15 +50,18 @@ public class User
     
     public void ChangeBirthDate(DateOnly birthDate) => BirthDate = birthDate;
     
-    private void CreateUserPermissions()
-    {
-        Permissions = PermissionsConstants.UserPermissions.Select(permission => new Permission(permission)).ToList();
-    }
     
-    // public void CreateAdminPermissions()
-    // {
-    //     Permissions.AddRange(PermissionsConstants.AdminPermissions.Select(permission => new Permission(permission)));
-    // }
+    // Метод для установки базовых пермиссий
+    public void AssignUserPermissions(IEnumerable<Permission> permissions)
+    {
+        if (permissions == null) throw new ArgumentNullException(nameof(permissions));
+        
+        var userPermissions = permissions
+            .Where(p => PermissionsConstants.UserPermissions.Contains(p.Name))
+            .ToList();
+        
+        Permissions = userPermissions;
+    }
     
 #pragma warning disable CS8618, CS9264
     public User() {}

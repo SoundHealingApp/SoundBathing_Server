@@ -10,5 +10,7 @@ public interface IUserCredentialsRepository
     
     public Task<UserCredentials?> GetByUserIdAsync(Guid userId);
     
+    public Task DeleteByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+    
     public Task SaveChangesAsync(CancellationToken cancellationToken);
 }
