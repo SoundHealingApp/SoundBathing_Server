@@ -26,8 +26,8 @@ internal sealed class RegisterCommandHandler(
         
         await userCredentialsRepository.AddAsync(userCredentials);
         
-        var token = jwtProvider.GenerateToken(userCredentials);
+        // var token = jwtProvider.GenerateToken(userCredentials);
 
-        return new RegisterResponse(Token: token, UserId: userCredentials.Id.ToString());
+        return new RegisterResponse(Token: "token", UserId: userCredentials.Id.ToString());
     }
 }
