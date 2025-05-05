@@ -1,8 +1,8 @@
-using CQRS;
 using MediatR;
 using SoundHealing.Application.Errors.UsersErrors;
 using SoundHealing.Application.Interfaces;
 using SoundHealing.Core.Interfaces;
+using SoundHealing.Extensions;
 
 namespace SoundHealing.Application.Commands.Auth;
 

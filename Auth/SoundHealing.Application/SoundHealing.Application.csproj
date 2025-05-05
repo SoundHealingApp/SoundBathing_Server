@@ -14,7 +14,6 @@
     <ItemGroup>
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
       <PackageReference Include="MediatR" Version="12.4.1" />
-      <PackageReference Include="SH.CQRS" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>

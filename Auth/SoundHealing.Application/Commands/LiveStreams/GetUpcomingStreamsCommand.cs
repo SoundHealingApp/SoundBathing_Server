@@ -1,4 +1,4 @@
-using CQRS;
+using SoundHealing.Extensions;
 using MediatR;
 using SoundHealing.Application.Contracts.Dto;
 using SoundHealing.Core.Interfaces;

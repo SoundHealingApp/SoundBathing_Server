@@ -1,5 +1,4 @@
 using System.Net;
-using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,7 @@ using SoundHealing.Application.Contracts.Requests.User;
 using SoundHealing.Application.Errors.AuthErrors;
 using SoundHealing.Application.Errors.UsersErrors;
 using SoundHealing.Core;
+using SoundHealing.Extensions;
 
 namespace SoundHealing.Controllers.Users.UserData;
 

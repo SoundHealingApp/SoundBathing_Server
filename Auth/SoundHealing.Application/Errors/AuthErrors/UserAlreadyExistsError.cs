@@ -1,4 +1,4 @@
-using CQRS;
+using SoundHealing.Extensions;
 
 namespace SoundHealing.Application.Errors.AuthErrors;
 

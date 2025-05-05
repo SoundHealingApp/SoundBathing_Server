@@ -1,4 +1,4 @@
-using CQRS;
+using SoundHealing.Extensions;
 using MediatR;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Core.Enums;

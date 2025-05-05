@@ -1,6 +1,5 @@
 using System.Globalization;
 using System.Net;
-using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,7 @@ using SoundHealing.Application.Commands.LiveStreams;
 using SoundHealing.Application.Contracts.Requests.LiveStreams;
 using SoundHealing.Application.Errors.LiveStreamErrors;
 using SoundHealing.Core;
+using SoundHealing.Extensions;
 
 namespace SoundHealing.Controllers.LiveStreams;
 

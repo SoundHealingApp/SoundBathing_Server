@@ -1,5 +1,4 @@
 using System.Net;
-using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +9,7 @@ using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.S3Errors;
 using SoundHealing.Core;
 using SoundHealing.Core.Enums;
+using SoundHealing.Extensions;
 
 namespace SoundHealing.Controllers.Meditations;
 

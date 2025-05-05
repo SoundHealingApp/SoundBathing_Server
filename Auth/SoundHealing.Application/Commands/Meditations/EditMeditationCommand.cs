@@ -1,4 +1,4 @@
-using CQRS;
+using SoundHealing.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using SoundHealing.Application.Errors.MeditationErrors;
