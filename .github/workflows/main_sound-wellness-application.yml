@@ -55,16 +55,13 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: webapp
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-
+          name: .net-app
       - name: Login to Azure
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2F7950EF52304346B9A74E23C8C2ED9B }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BA3E99BF7A274F25B1109AF8EA2FB5A6 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F97E812CA891441FA375777EC5ECC240 }}
-          
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
