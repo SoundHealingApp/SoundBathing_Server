@@ -9,7 +9,7 @@ on:
       - main
 env:
   AZURE_WEBAPP_NAME: sound-wellness-application 
-  AZURE_WEBAPP_PACKAGE_PATH: "./SoundHealing.Api/publish"
+  AZURE_WEBAPP_PACKAGE_PATH: "Auth/SoundHealing.Api/publish"
   DOTNET_VERSION: "9.x"
   SOLUTION_PATH: "Auth/SoundHealing.sln"
   API_PROJECT_PATH: "Auth/SoundHealing.Api"
@@ -43,7 +43,7 @@ jobs:
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: webapp
+          name: .net-app
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy:
@@ -55,20 +55,11 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: webapp
+          name: .net-app
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_2F7950EF52304346B9A74E23C8C2ED9B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BA3E99BF7A274F25B1109AF8EA2FB5A6 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F97E812CA891441FA375777EC5ECC240 }}
-          
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-          
