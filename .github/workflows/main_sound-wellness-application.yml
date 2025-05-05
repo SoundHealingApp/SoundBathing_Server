@@ -9,7 +9,7 @@ on:
       - main
 env:
   AZURE_WEBAPP_NAME: sound-wellness-application 
-  AZURE_WEBAPP_PACKAGE_PATH: "./SoundHealing.Api/publish"
+  AZURE_WEBAPP_PACKAGE_PATH: "Auth/SoundHealing.Api/publish"
   DOTNET_VERSION: "9.x"
   SOLUTION_PATH: "Auth/SoundHealing.sln"
   API_PROJECT_PATH: "Auth/SoundHealing.Api"
