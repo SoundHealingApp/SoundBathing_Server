@@ -90,7 +90,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost("{userId:guid}/change-credentials")]
-    // [Authorize(PermissionsConstants.EditUserInfo)]
+    [Authorize(PermissionsConstants.EditUserInfo)]
     public async Task<IActionResult> ChangeCredentials(
         [FromRoute] Guid userId,
         [FromBody] ChangeCredentialsRequest request,

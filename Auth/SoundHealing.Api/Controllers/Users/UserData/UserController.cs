@@ -40,7 +40,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Получить информацию о пользователе.
     /// </summary>
     [HttpGet("{userId}")]
-    // [Authorize(PermissionsConstants.GetUserInfo)]
+    [Authorize(PermissionsConstants.GetUserInfo)]
     public async Task<IActionResult> GetUserData(
         [FromRoute] string userId,
         CancellationToken cancellationToken)
@@ -61,7 +61,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Изменить данные пользователя
     /// </summary>
     [HttpPatch("{userId:guid}")]
-    // [Authorize(PermissionsConstants.EditUserInfo)]
+    [Authorize(PermissionsConstants.EditUserInfo)]
     public async Task<IActionResult> ChangeUserData(
         [FromRoute] Guid userId,
         [FromBody] ChangeUserDataRequest request,
@@ -103,7 +103,7 @@ public class UserController(IMediator mediator) : ControllerBase
     /// Удалить пользователя.
     /// </summary>
     [HttpDelete("{userId}")]
-    // [Authorize(PermissionsConstants.GetUserInfo)]
+    [Authorize(PermissionsConstants.GetUserInfo)]
     public async Task<IActionResult> DeleteUser(
         [FromRoute] Guid userId,
         CancellationToken cancellationToken)

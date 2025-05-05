@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SoundHealing.Infrastructure;
@@ -12,11 +11,9 @@ using SoundHealing.Infrastructure;
 namespace Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250203192643_updateTableName")]
-    partial class updateTableName
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,21 +21,6 @@ namespace Auth.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("MeditationUser", b =>
-                {
-                    b.Property<Guid>("LikedMeditationsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("LikedMeditationsId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MeditationUser");
-                });
 
             modelBuilder.Entity("PermissionUser", b =>
                 {
@@ -53,21 +35,6 @@ namespace Auth.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PermissionUser");
-                });
-
-            modelBuilder.Entity("RecommendedMeditations", b =>
-                {
-                    b.Property<Guid>("MeditationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("MeditationId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RecommendedMeditations");
                 });
 
             modelBuilder.Entity("SoundHealing.Core.Models.LiveStream", b =>
@@ -152,6 +119,10 @@ namespace Auth.Infrastructure.Migrations
                     b.Property<int>("Estimate")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("UserId", "MeditationId");
 
                     b.HasIndex("MeditationId");
@@ -172,6 +143,68 @@ namespace Auth.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Permission", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a682ec01-91b3-08cf-6d07-b2ddfea6ecdc"),
+                            Name = "GetUserInfo"
+                        },
+                        new
+                        {
+                            Id = new Guid("6d0ca4ab-0ac6-b2ab-b9c6-56923682ba6d"),
+                            Name = "EditUserInfo"
+                        },
+                        new
+                        {
+                            Id = new Guid("b9cb9748-fa53-ebb3-28a9-323b81d62f66"),
+                            Name = "GetLiveStreamsInfo"
+                        },
+                        new
+                        {
+                            Id = new Guid("f2885585-8b0e-0f44-b5ff-0e70f52b8279"),
+                            Name = "GetMeditationsInfo"
+                        },
+                        new
+                        {
+                            Id = new Guid("7d7dbf23-67ab-ec4b-64ac-88f1077d3156"),
+                            Name = "GetQuotesInfo"
+                        },
+                        new
+                        {
+                            Id = new Guid("0b322a17-8807-f1c9-d491-5b8cc2ddec75"),
+                            Name = "AddFeedback"
+                        },
+                        new
+                        {
+                            Id = new Guid("483761cb-6f9d-31b4-e6fe-2e93c3c092fc"),
+                            Name = "GetFeedbackInfo"
+                        },
+                        new
+                        {
+                            Id = new Guid("9c5f49d3-1628-36f6-ea48-d3a582744254"),
+                            Name = "ManageMeditationsLikes"
+                        },
+                        new
+                        {
+                            Id = new Guid("c9b2967f-0a58-1903-8704-3abf5b64c0eb"),
+                            Name = "ManageMeditationsRecommendations"
+                        },
+                        new
+                        {
+                            Id = new Guid("04cf09e1-5507-9cb7-a6bd-5cae7c538dc1"),
+                            Name = "LiveStreamsAdministration"
+                        },
+                        new
+                        {
+                            Id = new Guid("c6dccaef-07fd-6ae1-aad9-2794b34df2e4"),
+                            Name = "MeditationsAdministration"
+                        },
+                        new
+                        {
+                            Id = new Guid("61010f34-0466-8fb0-49e4-c6bf08cfb7a5"),
+                            Name = "QuotesAdministration"
+                        });
                 });
 
             modelBuilder.Entity("SoundHealing.Core.Models.Quote", b =>
@@ -235,19 +268,34 @@ namespace Auth.Infrastructure.Migrations
                     b.ToTable("UsersCredentials");
                 });
 
-            modelBuilder.Entity("MeditationUser", b =>
+            modelBuilder.Entity("UserLikedMeditations", b =>
                 {
-                    b.HasOne("SoundHealing.Core.Models.Meditation", null)
-                        .WithMany()
-                        .HasForeignKey("LikedMeditationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("MeditationId")
+                        .HasColumnType("uuid");
 
-                    b.HasOne("SoundHealing.Core.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("MeditationId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLikedMeditations");
+                });
+
+            modelBuilder.Entity("UserRecommendedMeditations", b =>
+                {
+                    b.Property<Guid>("MeditationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("MeditationId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRecommendedMeditations");
                 });
 
             modelBuilder.Entity("PermissionUser", b =>
@@ -255,21 +303,6 @@ namespace Auth.Infrastructure.Migrations
                     b.HasOne("SoundHealing.Core.Models.Permission", null)
                         .WithMany()
                         .HasForeignKey("PermissionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoundHealing.Core.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RecommendedMeditations", b =>
-                {
-                    b.HasOne("SoundHealing.Core.Models.Meditation", null)
-                        .WithMany()
-                        .HasForeignKey("MeditationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -300,6 +333,36 @@ namespace Auth.Infrastructure.Migrations
                     b.HasOne("SoundHealing.Core.Models.User", null)
                         .WithOne()
                         .HasForeignKey("SoundHealing.Core.Models.UserCredentials", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UserLikedMeditations", b =>
+                {
+                    b.HasOne("SoundHealing.Core.Models.Meditation", null)
+                        .WithMany()
+                        .HasForeignKey("MeditationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SoundHealing.Core.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UserRecommendedMeditations", b =>
+                {
+                    b.HasOne("SoundHealing.Core.Models.Meditation", null)
+                        .WithMany()
+                        .HasForeignKey("MeditationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SoundHealing.Core.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

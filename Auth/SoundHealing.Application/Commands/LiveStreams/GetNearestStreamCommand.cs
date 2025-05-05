@@ -13,13 +13,14 @@ internal sealed class GetNearestStreamCommandHandler(ILiveStreamRepository liveS
     public async Task<Result<LiveStreamDto?>> Handle(GetNearestStreamCommand request, CancellationToken cancellationToken)
     {
         var streams = await liveStreamRepository.GetSortedStreamsAsync(cancellationToken);
+        LiveStreamDto? streamDto = null;
         
         var upcomingStream = streams.FirstOrDefault(x => x.StartDateTime >= DateTime.UtcNow.AddMinutes(-5));
 
         if (upcomingStream == null)
-            return null;
+            return streamDto;
         
-        var streamDto = new LiveStreamDto(
+        streamDto = new LiveStreamDto(
             upcomingStream.Id,
             upcomingStream.Title,
             upcomingStream.Description,

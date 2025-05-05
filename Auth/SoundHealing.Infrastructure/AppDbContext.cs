@@ -15,7 +15,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<MeditationFeedback> MeditationsFeedback { get; set; }
     public DbSet<LiveStream> LiveStreams { get; set; }
     public DbSet<Quote> Quotes { get; set; }
-    
     public DbSet<Permission> Permission { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

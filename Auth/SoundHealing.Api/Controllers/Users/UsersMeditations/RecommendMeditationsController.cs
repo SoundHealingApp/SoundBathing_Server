@@ -18,7 +18,7 @@ public class RecommendMeditationsController(IMediator mediator) : ControllerBase
     /// Добавить медитации в рекоммендованные.
     /// </summary>
     [HttpPost]
-    // [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
+    [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
     public async Task<IActionResult> RecommendMeditation(
         [FromRoute] Guid userId,
         [FromQuery] List<Guid> meditationId,
@@ -42,7 +42,7 @@ public class RecommendMeditationsController(IMediator mediator) : ControllerBase
     /// Получить рекомендованные медитации.
     /// </summary>
     [HttpGet]
-    // [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
+    [Authorize(PermissionsConstants.ManageMeditationsRecommendations)]
     public async Task<IActionResult> GetRecommendMeditation(
         [FromRoute] Guid userId,
         CancellationToken cancellationToken)

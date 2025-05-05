@@ -21,7 +21,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Добавить отзыв к медитации.
     /// </summary>
     [HttpPost("feedback")]
-    // [Authorize(PermissionsConstants.AddFeedback)]
+    [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> AddFeedback(
         [FromRoute] Guid meditationId,
         [FromBody] AddMeditationFeedbackRequest request,
@@ -128,7 +128,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Получить отзывы медитации.
     /// </summary>
     [HttpGet("feedbacks")]
-    // [Authorize(PermissionsConstants.GetFeedbackInfo)]
+    [Authorize(PermissionsConstants.GetFeedbackInfo)]
     public async Task<IActionResult> GetFeedbacks(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -149,7 +149,7 @@ public class FeedbackController(IMediator mediator) : ControllerBase
     /// Может ли пользователь добавлять отзыв к данной медитации.
     /// </summary>
     [HttpGet("can-add-feedback")]
-    // [Authorize(PermissionsConstants.AddFeedback)]
+    [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> CanUserAddFeedback(
         [FromRoute] Guid meditationId,
         [FromQuery] Guid userId,
