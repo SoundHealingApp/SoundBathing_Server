@@ -18,7 +18,7 @@ public class QuoteController(IMediator mediator) : ControllerBase
     /// Создать цитату.
     /// </summary>
     [HttpPost]
-    [Authorize(PermissionsConstants.QuotesAdministration)]
+    // [Authorize(PermissionsConstants.QuotesAdministration)]
     public async Task<IActionResult> CreateAsync(
         [FromBody] CreateQuoteRequest request,
         CancellationToken cancellationToken)
