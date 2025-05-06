@@ -99,7 +99,7 @@ var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCrede
 builder.Services.AddDbContext<AppDbContext>(
     options =>
     {
-        options.UseNpgsql(builder.Configuration.GetConnectionString(client.GetSecret("ConnectionString").Value.Value!));
+        options.UseNpgsql(client.GetSecret("ConnectionString").Value.Value!);
     });
 
 // if (builder.Environment.IsDevelopment())
