@@ -30,8 +30,10 @@ var keyVaultClient = new KeyVaultClient(
     new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
 
 configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+var secretClient = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+builder.Services.AddSingleton<SecretClient>(_ => secretClient);
 
-var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+builder.Services.AddSingleton<ISecretProvider, AzureKeyVaultSecretProvider>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -53,7 +55,7 @@ builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddApiAuthentication(builder.Configuration, builder.Environment, client);
+builder.Services.AddApiAuthentication(builder.Configuration, builder.Environment, secretClient);
 builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 builder.Services.AddScoped<IValidator<ChangeCredentialsRequest>, ChangeCredentialsRequestValidator>();
 builder.Services.AddScoped<IValidator<AddMeditationFeedbackRequest>, AddMeditationFeedbackRequestValidator>();
@@ -78,8 +80,8 @@ else if (builder.Environment.IsProduction())
     builder.Services.AddSingleton<IAmazonS3>(sp =>
     {
         var s3Settings = sp.GetRequiredService<IOptions<S3Settings>>().Value;
-        var s3AccessKey = client.GetSecret("S3AccessKey").Value.Value!;
-        var s3SecretKey = client.GetSecret("S3SecretKey").Value.Value!;
+        var s3AccessKey = secretClient.GetSecret("S3AccessKey").Value.Value!;
+        var s3SecretKey = secretClient.GetSecret("S3SecretKey").Value.Value!;
 
         var config = new AmazonS3Config
         {
@@ -102,7 +104,7 @@ else if (builder.Environment.IsProduction())
     builder.Services.AddDbContext<AppDbContext>(
         options =>
         {
-            options.UseNpgsql(client.GetSecret("ConnectionString").Value.Value!);
+            options.UseNpgsql(secretClient.GetSecret("ConnectionString").Value.Value!);
         });
 }
 

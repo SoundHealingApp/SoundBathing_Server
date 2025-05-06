@@ -4,12 +4,13 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SoundHealing.Application.Interfaces;
+using SoundHealing.Core.Interfaces;
 using SoundHealing.Core.Models;
 using SoundHealing.Infrastructure.Options;
 
 namespace SoundHealing.Infrastructure.Providers;
 
-public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
+public class JwtProvider(IOptions<JwtOptions> options, ISecretProvider secretProvider) : IJwtProvider
 {
     private readonly JwtOptions _options = options.Value;
 
@@ -20,7 +21,7 @@ public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
         ];
         
         var signingCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretProvider.GetSecret("JwtOptions"))),
             SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
