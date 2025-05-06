@@ -24,11 +24,11 @@ using SoundHealing.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
-var keyVaultClient = new KeyVaultClient(
-    new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
-configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
-var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+// var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
+// var keyVaultClient = new KeyVaultClient(
+//     new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+// configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+// var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -50,7 +50,7 @@ builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-builder.Services.AddApiAuthentication(builder.Configuration, builder.Environment, client);
+builder.Services.AddApiAuthentication(builder.Configuration, builder.Environment);
 builder.Services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
 builder.Services.AddScoped<IValidator<ChangeCredentialsRequest>, ChangeCredentialsRequestValidator>();
 builder.Services.AddScoped<IValidator<AddMeditationFeedbackRequest>, AddMeditationFeedbackRequestValidator>();
@@ -75,7 +75,11 @@ else if (builder.Environment.IsProduction())
     builder.Services.AddSingleton<IAmazonS3>(sp =>
     {
         var s3Settings = sp.GetRequiredService<IOptions<S3Settings>>().Value;
-    
+        var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
+        var keyVaultClient = new KeyVaultClient(
+            new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+        configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+        var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
         var s3AccessKey = client.GetSecret("S3AccessKey").Value.Value!;
         var s3SecretKey = client.GetSecret("S3SecretKey").Value.Value!;
 
@@ -87,22 +91,38 @@ else if (builder.Environment.IsProduction())
     });
 }
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDbContext<AppDbContext>(
-        options =>
-        {
-            options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(AppDbContext)));
-        });
-} 
-else if (builder.Environment.IsProduction())
-{
-    builder.Services.AddDbContext<AppDbContext>(
-        options =>
-        {
-            options.UseNpgsql(builder.Configuration.GetConnectionString(client.GetSecret("ConnectionString").Value.Value!));
-        });
-}
+var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
+var keyVaultClient = new KeyVaultClient(
+    new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+builder.Services.AddDbContext<AppDbContext>(
+    options =>
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString(client.GetSecret("ConnectionString").Value.Value!));
+    });
+
+// if (builder.Environment.IsDevelopment())
+// {
+//     builder.Services.AddDbContext<AppDbContext>(
+//         options =>
+//         {
+//             options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(AppDbContext)));
+//         });
+// } 
+// else if (builder.Environment.IsProduction())
+// {
+//     var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
+//     var keyVaultClient = new KeyVaultClient(
+//         new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+//     configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+//     var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+//     builder.Services.AddDbContext<AppDbContext>(
+//         options =>
+//         {
+//             options.UseNpgsql(builder.Configuration.GetConnectionString(client.GetSecret("ConnectionString").Value.Value!));
+//         });
+// }
 
 var app = builder.Build();
 

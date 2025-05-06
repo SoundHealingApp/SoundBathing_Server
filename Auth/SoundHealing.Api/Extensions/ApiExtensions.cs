@@ -17,8 +17,7 @@ public static class ApiExtensions
     public static void AddApiAuthentication(
         this IServiceCollection services,
         ConfigurationManager configuration, 
-        IWebHostEnvironment environment,
-        SecretClient secretClient)
+        IWebHostEnvironment environment)
     {
         var jwtSecretKey = "";
         
@@ -29,7 +28,13 @@ public static class ApiExtensions
         } 
         else if (environment.IsProduction())
         {          
-            jwtSecretKey = secretClient.GetSecret("JwtOptions").Value.Value!;
+            var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
+            var keyVaultClient = new KeyVaultClient(
+                new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+            configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+            var client = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+            
+            jwtSecretKey = client.GetSecret("JwtOptions").Value.Value!;
         }
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
