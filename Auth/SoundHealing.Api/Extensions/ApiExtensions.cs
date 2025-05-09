@@ -22,9 +22,10 @@ public static class ApiExtensions
     {
         var jwtSecretKey = "";
         
+        services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+
         if (environment.IsDevelopment())
         {
-            services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
             jwtSecretKey = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>()!.SecretKey;
         } 
         else if (environment.IsProduction())
