@@ -59,7 +59,6 @@ public class FeedbackController(IMediator mediator) : ControllerBase
         };
     }
     
-    // TODO: добавить пермиссию отдельную
     /// <summary>
     /// Удалить отзыв.
     /// </summary>
@@ -83,11 +82,11 @@ public class FeedbackController(IMediator mediator) : ControllerBase
         };
     }
     
-    // TODO: добавить пермиссию отдельную
     /// <summary>
     /// Изменить отзыв
     /// </summary>
     [HttpPut("feedback")]
+    [Authorize(PermissionsConstants.AddFeedback)]
     public async Task<IActionResult> ChangeFeedback(
         [FromRoute] Guid meditationId,
         [FromQuery] Guid userId,

@@ -54,7 +54,6 @@ public class QuoteController(IMediator mediator) : ControllerBase
     /// Получить рандомную цитату.
     /// </summary>
     [HttpGet("random")]
-    [Authorize(PermissionsConstants.GetQuotesInfo)]
     public async Task<IActionResult> GetRandomAsync(CancellationToken cancellationToken)
     {
         var result = await mediator.Send(
