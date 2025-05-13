@@ -24,16 +24,24 @@ using SoundHealing.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
+SecretClient? secretClient = null;
 
-var keyVaultClient = new KeyVaultClient(
-    new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSingleton<ISecretProvider, DummySecretProvider>();
+}
+else if (builder.Environment.IsProduction())
+{
+    var keyVaultUrl = configuration.GetSection("KeyVault:KeyVaultURL");
 
-configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
-var secretClient = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
-builder.Services.AddSingleton<SecretClient>(_ => secretClient);
-
-builder.Services.AddSingleton<ISecretProvider, AzureKeyVaultSecretProvider>();
+    var keyVaultClient = new KeyVaultClient(
+        new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+    
+    configuration.AddAzureKeyVault(keyVaultUrl.Value!, new DefaultKeyVaultSecretManager());
+    secretClient = new SecretClient(new Uri(keyVaultUrl.Value!), new DefaultAzureCredential());
+    builder.Services.AddSingleton<SecretClient>(_ => secretClient);
+    builder.Services.AddSingleton<ISecretProvider, AzureKeyVaultSecretProvider>();
+}
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -80,7 +88,7 @@ else if (builder.Environment.IsProduction())
     builder.Services.AddSingleton<IAmazonS3>(sp =>
     {
         var s3Settings = sp.GetRequiredService<IOptions<S3Settings>>().Value;
-        var s3AccessKey = secretClient.GetSecret("S3AccessKey").Value.Value!;
+        var s3AccessKey = secretClient!.GetSecret("S3AccessKey").Value.Value!;
         var s3SecretKey = secretClient.GetSecret("S3SecretKey").Value.Value!;
 
         var config = new AmazonS3Config
@@ -104,7 +112,7 @@ else if (builder.Environment.IsProduction())
     builder.Services.AddDbContext<AppDbContext>(
         options =>
         {
-            options.UseNpgsql(secretClient.GetSecret("ConnectionString").Value.Value!);
+            options.UseNpgsql(secretClient!.GetSecret("ConnectionString").Value.Value!);
         });
 }
 
@@ -125,3 +133,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public class DummySecretProvider : ISecretProvider
+{
+    public string GetSecret(string name) => "dummy-value";
+}

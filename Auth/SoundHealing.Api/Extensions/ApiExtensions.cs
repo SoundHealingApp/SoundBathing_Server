@@ -18,7 +18,7 @@ public static class ApiExtensions
         this IServiceCollection services,
         ConfigurationManager configuration, 
         IWebHostEnvironment environment,
-        SecretClient secretClient)
+        SecretClient? secretClient)
     {
         var jwtSecretKey = "";
         
@@ -30,7 +30,7 @@ public static class ApiExtensions
         } 
         else if (environment.IsProduction())
         {          
-            jwtSecretKey = secretClient.GetSecret("JwtOptions").Value.Value!;
+            jwtSecretKey = secretClient!.GetSecret("JwtOptions").Value.Value!;
         }
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
