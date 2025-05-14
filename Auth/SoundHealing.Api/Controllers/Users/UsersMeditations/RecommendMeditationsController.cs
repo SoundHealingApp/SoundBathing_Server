@@ -1,10 +1,12 @@
 using System.Net;
+using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.UserMeditations.RecommendMeditationsCommands;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core;
 using SoundHealing.Extensions;
 

@@ -1,4 +1,5 @@
 using System.Net;
+using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using SoundHealing.Application.Commands.Meditations.FilesCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.S3Errors;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core;
 using SoundHealing.Core.Enums;
 using SoundHealing.Extensions;
@@ -80,7 +82,6 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Получить список медитаций по типу
     /// </summary>
     [HttpGet("type/{meditationType}")]
-    // [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IActionResult> GetByTypeAsync(
         [FromRoute] MeditationType meditationType,
         CancellationToken cancellationToken)
@@ -100,7 +101,6 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Получить информацию о медитации по ID
     /// </summary>
     [HttpGet("{meditationId:guid}")]
-    // [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IActionResult> GetInfoByIdAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -142,7 +142,6 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Скачать изображение медитации
     /// </summary>
     [HttpGet("{meditationId:guid}/image")]
-    // [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IResult> DownloadImageAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)
@@ -157,7 +156,6 @@ public class MeditationController(IMediator mediator) : ControllerBase
     /// Скачать аудио медитации
     /// </summary>
     [HttpGet("{meditationId:guid}/audio")]
-    // [Authorize(PermissionsConstants.GetMeditationsInfo)]
     public async Task<IResult> DownloadAudioAsync(
         [FromRoute] Guid meditationId,
         CancellationToken cancellationToken)

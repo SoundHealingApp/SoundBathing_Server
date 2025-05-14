@@ -1,8 +1,9 @@
-using SoundHealing.Extensions;
+using CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.S3Errors;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core.Enums;
 using SoundHealing.Core.Interfaces;
 

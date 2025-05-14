@@ -1,7 +1,8 @@
-using SoundHealing.Extensions;
+using CQRS;
 using MediatR;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core.Interfaces;
 using SoundHealing.Core.Models;
 

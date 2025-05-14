@@ -1,7 +1,8 @@
+using CQRS;
 using MediatR;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core.Interfaces;
 using SoundHealing.Core.Models;
-using SoundHealing.Extensions;
 
 namespace SoundHealing.Application.Commands.LiveStreams;
 

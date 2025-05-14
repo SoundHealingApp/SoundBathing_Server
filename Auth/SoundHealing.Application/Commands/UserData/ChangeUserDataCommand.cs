@@ -1,6 +1,7 @@
-using SoundHealing.Extensions;
+using CQRS;
 using MediatR;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core.Interfaces;
 
 namespace SoundHealing.Application.Commands.UserData;

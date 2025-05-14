@@ -1,4 +1,5 @@
-using SoundHealing.Extensions;
+using CQRS;
+using SoundHealing.Application.Interfaces;
 
 namespace SoundHealing.Application.Errors.Quotes;
 

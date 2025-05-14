@@ -1,4 +1,5 @@
 using System.Net;
+using CQRS;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using SoundHealing.Application.Commands.Meditations.FeedbackCommands;
 using SoundHealing.Application.Contracts.Requests.Meditation;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
+using SoundHealing.Application.Interfaces;
 using SoundHealing.Core;
 using SoundHealing.Extensions;
 
