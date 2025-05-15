@@ -37,8 +37,3 @@
 
 4. Перейдите в Swagger UI:
    [https://localhost:7035/index.html](https://localhost:7035/index.html)
-
-## 🌐 Продакшн
-
-API доступен по адресу:
-👉 [https://sound-wellness-application.azurewebsites.net/index.html](https://sound-wellness-application.azurewebsites.net/index.html)
