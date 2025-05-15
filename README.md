@@ -6,7 +6,7 @@
 
 - 💻 C#
 - 🌐 ASP.NET Core
-- 🗃 PostgreSQL (через Docker)
+- 🗃 PostgreSQL
 - 🧩 Entity Framework Core (ORM)
 - ☁️ Amazon S3 — для хранения медиафайлов
 - 🔐 Microsoft Azure Key Vault — для хранения секретов
