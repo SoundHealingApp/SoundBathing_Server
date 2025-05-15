@@ -6,15 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using SoundHealing.Application.Commands.UserMeditations.LikeMeditationsCommand;
 using SoundHealing.Application.Errors.MeditationErrors;
 using SoundHealing.Application.Errors.UsersErrors;
-using SoundHealing.Application.Interfaces;
 using SoundHealing.Core;
-using SoundHealing.Extensions;
 
 namespace SoundHealing.Controllers.Users.UsersMeditations;
 
 [ApiController]
 [Route("users/{userId:guid}/liked-meditations")]
-internal class LikeMeditationController(IMediator mediator) : ControllerBase
+public class LikeMeditationController(IMediator mediator) : ControllerBase
 {
     /// <summary>
     /// Добавить медитацию в понравившуюся.
